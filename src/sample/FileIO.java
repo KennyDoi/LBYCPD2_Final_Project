@@ -11,7 +11,7 @@ public class FileIO {
         ArrayList<Item> ItemList = new ArrayList<Item>();
         boolean isFirstLine = true;
         try {
-            File obj = new File("assets/ItemDatabase.txt");
+            File obj = new File("assets/ItemDatabase.csv");
             Scanner reader = new Scanner(obj);
 
             while (reader.hasNextLine()) {
@@ -21,7 +21,7 @@ public class FileIO {
                     isFirstLine = false;
                     continue;
                 }
-                String[] attribute = data.split(";");
+                String[] attribute = data.split(",");
 
                 int idInt = Integer.parseInt(attribute[0]);
                 int stockInt = Integer.parseInt(attribute[4]);
@@ -48,10 +48,10 @@ public class FileIO {
 
     public static void writeItemFiles(ArrayList<Item> ItemList){
         try {
-            FileWriter myWriter = new FileWriter("assets/ItemDatabase.txt");
+            FileWriter myWriter = new FileWriter("assets/ItemDatabase.csv");
             myWriter.write("~~~Item Database -> id;name;category;variant;stock;price\n");
             for (int i = 0; i < ItemList.size(); i++) {
-                myWriter.write(ItemList.get(i).id + ";" + ItemList.get(i).name + ";" + ";" + ItemList.get(i).category + ";" + ItemList.get(i).variant + ";" + ItemList.get(i).stock + ItemList.get(i).price + "\n");
+                myWriter.write(ItemList.get(i).id + "," + ItemList.get(i).name + "," + ItemList.get(i).category + "," + ItemList.get(i).variant + "," + ItemList.get(i).stock + "," + ItemList.get(i).price + "\n");
             }
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
