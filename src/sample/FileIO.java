@@ -28,15 +28,15 @@ public class FileIO {
                 double priceDouble = Double.parseDouble(attribute[5]);
 
 
-                Item med = new Item();
-                med.id = idInt;
-                med.name = attribute[1];
-                med.category = attribute[2];
-                med.variant = attribute[3];
-                med.stock = stockInt;
-                med.price = priceDouble;
+                Item item = new Item();
+                item.id = idInt;
+                item.name = attribute[1];
+                item.category = attribute[2];
+                item.variant = attribute[3];
+                item.stock = stockInt;
+                item.price = priceDouble;
 
-                ItemList.add(med);
+                ItemList.add(item);
             }
             reader.close();
             return ItemList;
