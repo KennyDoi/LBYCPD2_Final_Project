@@ -27,7 +27,6 @@ public class FileIO {
                 int stockInt = Integer.parseInt(attribute[4]);
                 double priceDouble = Double.parseDouble(attribute[5]);
 
-
                 Item item = new Item();
                 item.id = idInt;
                 item.name = attribute[1];
