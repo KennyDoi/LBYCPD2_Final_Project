@@ -27,6 +27,7 @@ public class Controller {
         switchScene(event,"InventoryManagementMenu", "Inventory Management Menu");
     }
 
+
     public void switchScene(MouseEvent event, String filename, String title){
         Stage stage, currStage;
         try {
