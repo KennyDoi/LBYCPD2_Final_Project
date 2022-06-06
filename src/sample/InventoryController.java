@@ -10,12 +10,11 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import java.util.Formatter;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class InventoryController extends Main implements Initializable{
 
@@ -48,6 +47,11 @@ public class InventoryController extends Main implements Initializable{
         }
     }
 
+//    public static ArrayList<String> removeDuplicates(ArrayList<Item> ItemLists, int n) {
+//
+//        //return newArray;
+//    }
+
 
     public void switchScene(MouseEvent event, String filename, String title){
         Stage stage, currStage;
@@ -66,6 +70,7 @@ public class InventoryController extends Main implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+//        removeDuplicates(ItemList, ItemList.size());
         categoryInventory.getItems().add("ALL");
         for (int i = 0; i < ItemList.size(); i++) {
             categoryInventory.getItems().add(ItemList.get(i).category);

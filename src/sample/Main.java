@@ -17,7 +17,6 @@ public class Main extends Application {
         primaryStage.setTitle("21 Carts System");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-
         ItemList = FileIO.readItemFiles();
         //FileIO.writeItemFiles(ItemList);
     }
