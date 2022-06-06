@@ -6,8 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.util.Formatter;
@@ -17,6 +16,7 @@ import java.net.URL;
 import java.util.*;
 
 public class InventoryController extends Main implements Initializable{
+    public String selectedItem;
 
     @FXML
     public ListView<String> listInventory;
@@ -25,29 +25,86 @@ public class InventoryController extends Main implements Initializable{
     private ChoiceBox<String> categoryInventory;
 
     @FXML
+    private Button deleteItemButton;
+
+    @FXML
+    private Button editItemButton;
+
+    @FXML
+    private Spinner<Integer> subStockSpinner;
+
+    @FXML
+    private Spinner<Integer> addStockSpinner;
+
+    @FXML
     void goMenu(MouseEvent event) {
         switchScene(event,"MainMenu", "Menu");
     }
 
     @FXML
+    void categoryClicked(MouseEvent event) {
+        selectedItem = listInventory.getSelectionModel().getSelectedItem();
+        if(selectedItem != null){
+            deleteItemButton.setDisable(false);
+            editItemButton.setDisable(false);
+            subStockSpinner.setDisable(false);
+            addStockSpinner.setDisable(false);
+        }
+    }
+
+    @FXML
     void getCategory(MouseEvent event) {
         listInventory.getItems().clear();
+        deleteItemButton.setDisable(true);
+        listInventory.setFixedCellSize(30);
         String category = categoryInventory.getSelectionModel().getSelectedItem();
         if(category.equals("ALL")) {
             for (int i = 0; i < ItemList.size(); i++) {
-                listInventory.getItems().add(ItemList.get(i).id + "\t\t\t" + ItemList.get(i).name + "\t\t" + ItemList.get(i).variant + "\t\tP" + ItemList.get(i).price + "\t\t" + ItemList.get(i).stock);
+                listInventory.getItems().add(pad(ItemList.get(i).id, 20) + pad(ItemList.get(i).name, 85) + pad(ItemList.get(i).variant, 45) + "P" + pad(ItemList.get(i).price, 30) + ItemList.get(i).stock);
             }
         }
         else if (category != null){
             for (int i = 0; i < ItemList.size(); i++) {
                 if (category.equals(ItemList.get(i).category)) {
-                    listInventory.getItems().add(ItemList.get(i).id + "\t\t\t" + ItemList.get(i).name + "\t\t" + ItemList.get(i).variant + "\t\tP" + ItemList.get(i).price + "\t\t" + ItemList.get(i).stock);
+                    listInventory.getItems().add(pad(ItemList.get(i).id, 20) + pad(ItemList.get(i).name, 85) + pad(ItemList.get(i).variant, 45) + "P" + pad(ItemList.get(i).price, 30) + ItemList.get(i).stock);
                 }
             }
         }
     }
 
-    public static ArrayList<String> removeDuplicates(ArrayList<Item> ItemLists, int n) {
+    String pad(String x, int len){
+        int strlen = x.length();
+        StringBuilder out = new StringBuilder();
+        out.append(x);
+        for(int i=0; i<len-strlen; i++){
+            out.append(' ');
+        }
+        return out.toString();
+    }
+
+    String pad(int x, int len){
+        String temp = Integer.toString(x);
+        int strlen = temp.length();
+        StringBuilder out = new StringBuilder();
+        out.append(temp);
+        for(int i=0; i<len-strlen; i++){
+            out.append(' ');
+        }
+        return out.toString();
+    }
+
+    String pad(double x, int len){
+        String temp = Double.toString(x);
+        int strlen = temp.length();
+        StringBuilder out = new StringBuilder();
+        out.append(temp);
+        for(int i=0; i<len-strlen; i++){
+            out.append(' ');
+        }
+        return out.toString();
+    }
+
+    public static ArrayList<String> removeDuplicates(LinkedList<Item> ItemLists, int n) {
         ArrayList<String> categories = new ArrayList<String>();
         HashMap<String, Boolean> mp = new HashMap<>();
 
@@ -61,6 +118,48 @@ public class InventoryController extends Main implements Initializable{
         return categories;
     }
 
+    @FXML
+    void editItem(MouseEvent event) {
+
+    }
+
+    @FXML
+    void deleteItem(MouseEvent event) {
+        String[] selectedID = selectedItem.split(" ");
+        int idInt = Integer.parseInt(selectedID[0]);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Item");
+        alert.setHeaderText("Confirm Delete ID?");
+        alert.setContentText("Delete ID Number " + idInt);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            for(int i=0; i<ItemList.size(); i++){
+                if(ItemList.get(i).id == idInt){
+                    ItemList.remove(i);
+                    FileIO.writeItemFiles(ItemList);
+                }
+            }
+            listInventory.getItems().clear();
+            String category = categoryInventory.getSelectionModel().getSelectedItem();
+            if(category.equals("ALL")) {
+                for (int i = 0; i < ItemList.size(); i++) {
+                    listInventory.getItems().add(pad(ItemList.get(i).id, 20) + pad(ItemList.get(i).name, 85) + pad(ItemList.get(i).variant, 45) + "P" + pad(ItemList.get(i).price, 30) + ItemList.get(i).stock);
+                }
+            }
+            else if (category != null){
+                for (int i = 0; i < ItemList.size(); i++) {
+                    if (category.equals(ItemList.get(i).category)) {
+                        listInventory.getItems().add(pad(ItemList.get(i).id, 20) + pad(ItemList.get(i).name, 85) + pad(ItemList.get(i).variant, 45) + "P" + pad(ItemList.get(i).price, 30) + ItemList.get(i).stock);
+                    }
+                }
+            }
+        }
+        else {
+            alert.close();
+        }
+
+    }
 
     public void switchScene(MouseEvent event, String filename, String title){
         Stage stage, currStage;
