@@ -47,10 +47,19 @@ public class InventoryController extends Main implements Initializable{
         }
     }
 
-//    public static ArrayList<String> removeDuplicates(ArrayList<Item> ItemLists, int n) {
-//
-//        //return newArray;
-//    }
+    public static ArrayList<String> removeDuplicates(ArrayList<Item> ItemLists, int n) {
+        ArrayList<String> categories = new ArrayList<String>();
+        HashMap<String, Boolean> mp = new HashMap<>();
+
+        for (int i = 0; i < n; ++i) {
+            if (mp.get(ItemLists.get(i).category) == null)
+            {
+                categories.add(ItemLists.get(i).category);
+                mp.put(ItemLists.get(i).category, true);
+            }
+        }
+        return categories;
+    }
 
 
     public void switchScene(MouseEvent event, String filename, String title){
@@ -69,11 +78,11 @@ public class InventoryController extends Main implements Initializable{
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        removeDuplicates(ItemList, ItemList.size());
+    public void initialize(URL url, ResourceBundle resourceBundle){
+        ArrayList<String> categories = removeDuplicates(ItemList, ItemList.size());
         categoryInventory.getItems().add("ALL");
-        for (int i = 0; i < ItemList.size(); i++) {
-            categoryInventory.getItems().add(ItemList.get(i).category);
+        for (int i = 0; i < categories.size(); i++) {
+            categoryInventory.getItems().add(categories.get(i));
         }
     }
 }
