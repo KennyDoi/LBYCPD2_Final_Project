@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class Main extends Application {
-    public ArrayList<Item> ItemList;
+    public static ArrayList<Item> ItemList;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -19,7 +19,11 @@ public class Main extends Application {
         primaryStage.show();
 
         ItemList = FileIO.readItemFiles();
-        FileIO.writeItemFiles(ItemList);
+        //FileIO.writeItemFiles(ItemList);
+    }
+
+    public ArrayList<Item> getItemList(){
+        return ItemList;
     }
 
     public static void main(String[] args) {

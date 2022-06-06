@@ -2,24 +2,50 @@ package sample;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class InventoryController {
+public class InventoryController extends Main implements Initializable{
 
     @FXML
     public ListView<String> listInventory;
 
     @FXML
+    private ChoiceBox<String> categoryInventory;
+
+    @FXML
     void goMenu(MouseEvent event) {
         switchScene(event,"MainMenu", "Menu");
+    }
+
+    @FXML
+    void getCategory(MouseEvent event) {
+        listInventory.getItems().clear();
+        String category = categoryInventory.getSelectionModel().getSelectedItem();
+        if(category.equals("ALL")) {
+            for (int i = 0; i < ItemList.size(); i++) {
+                listInventory.getItems().add(ItemList.get(i).id + "\t\t\t" + ItemList.get(i).name + "\t\t" + ItemList.get(i).variant + "\t\tP" + ItemList.get(i).price + "\t\t" + ItemList.get(i).stock);
+            }
+        }
+        else if (category != null){
+            for (int i = 0; i < ItemList.size(); i++) {
+                if (category.equals(ItemList.get(i).category)) {
+                    listInventory.getItems().add(ItemList.get(i).id + "\t\t\t" + ItemList.get(i).name + "\t\t" + ItemList.get(i).variant + "\t\tP" + ItemList.get(i).price + "\t\t" + ItemList.get(i).stock);
+                }
+            }
+        }
     }
 
 
@@ -35,6 +61,14 @@ public class InventoryController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        categoryInventory.getItems().add("ALL");
+        for (int i = 0; i < ItemList.size(); i++) {
+            categoryInventory.getItems().add(ItemList.get(i).category);
         }
     }
 }

@@ -1,2 +1,3 @@
-~~~Item Database -> id;name;category;variant;stock;price
-123,Pot,Gardening,XL,72,350.0
+~~~Item Database -> id;name;category;variant;stock;price,,,,,
+1,Industrial Latex Gloves,Aprons & Potholders,Yellow,72,45
+2,Mini Flower Pots,Gardern Pots & Planters,Black,166,87
