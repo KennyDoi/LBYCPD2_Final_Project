@@ -1,31 +1,22 @@
 package sample;
 
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
-import javax.swing.text.html.ImageView;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Controller {
+public class OrderController {
 
     @FXML
-    void OrderManagement(MouseEvent event) {
-        switchScene(event,"OrderManagementMenu", "Order Management Menu");
+    void goMenu(MouseEvent event) {
+        switchScene(event,"MainMenu", "Menu");
     }
-
-    @FXML
-    void InventoryManagement(MouseEvent event) {
-        System.out.println("This is Inventory Management Function");
-        switchScene(event,"InventoryManagementMenu", "Inventory Management Menu");
-    }
-
 
     public void switchScene(MouseEvent event, String filename, String title){
         Stage stage, currStage;
@@ -41,5 +32,4 @@ public class Controller {
             e.printStackTrace();
         }
     }
-
 }
