@@ -88,6 +88,8 @@ public class AddPopupController extends Main implements Initializable {
         if (error) {
             return;
         }
+
+        //Write changes done on ItemList to local CSV file
         FileIO.writeItemFiles(ItemList);
         Stage stage = (Stage) cancelAdd.getScene().getWindow();
         stage.close();
