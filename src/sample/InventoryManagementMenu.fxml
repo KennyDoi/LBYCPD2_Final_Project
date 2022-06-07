@@ -53,7 +53,7 @@
                   </ContextMenu>
                </contextMenu></ListView>
             <ChoiceBox fx:id="categoryInventory" layoutX="195.0" layoutY="103.0" prefHeight="36.0" prefWidth="480.0" />
-            <Button layoutX="805.0" layoutY="240.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="164.0" text="Add">
+            <Button fx:id="addItemButton" layoutX="805.0" layoutY="240.0" mnemonicParsing="false" onMouseClicked="#addItem" prefHeight="51.0" prefWidth="164.0" text="Add">
                <font>
                   <Font size="24.0" />
                </font>
