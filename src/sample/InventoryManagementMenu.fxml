@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" prefHeight="768.0" prefWidth="1024.0" vgap="10" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.InventoryController">
+<GridPane alignment="center" hgap="10" prefHeight="768.0" prefWidth="1024.0" vgap="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.InventoryController">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -52,7 +52,7 @@
                   </ContextMenu>
                </contextMenu></ListView>
             <ChoiceBox fx:id="categoryInventory" layoutX="139.0" layoutY="103.0" prefHeight="36.0" prefWidth="480.0" />
-            <Button layoutX="805.0" layoutY="240.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="164.0" text="Add">
+            <Button fx:id="addItemButton" layoutX="805.0" layoutY="240.0" mnemonicParsing="false" onMouseClicked="#addItem" prefHeight="51.0" prefWidth="164.0" text="Add">
                <font>
                   <Font size="24.0" />
                </font>

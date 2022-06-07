@@ -8,8 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import java.util.Formatter;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -119,6 +120,23 @@ public class InventoryController extends Main implements Initializable{
     }
 
     @FXML
+    void addItem(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addPopup.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void editItem(MouseEvent event) {
 
     }
@@ -158,7 +176,6 @@ public class InventoryController extends Main implements Initializable{
         else {
             alert.close();
         }
-
     }
 
     public void switchScene(MouseEvent event, String filename, String title){

@@ -1,6 +1,7 @@
-~~~Item Database -> id;name;category;variant;stock;price,,,,,
-1,Industrial Latex Gloves,Aprons & Potholders,Yellow,72,45
-2,Mini Flower Pots,Gardern Pots & Planters,Black,166,87
-3,Mini Flower Pots,Gardern Pots & Planters,White,166,87
-4,Industrial Latex Gloves,Aprons & Potholders,Green,72,45
-5,Stainless Steel Door Hasp Latch,Keys Locks & Safes,Small,500,45
+~~~Item Database -> id;name;category;variant;stock;price
+1,Industrial Latex Gloves,Aprons & Potholders,Yellow,72,45.0
+2,Mini Flower Pots,Gardern Pots & Planters,Black,166,87.0
+3,Mini Flower Pots,Gardern Pots & Planters,White,166,87.0
+4,Industrial Latex Gloves,Aprons & Potholders,Green,72,45.0
+5,Stainless Steel Door Hasp Latch,Keys Locks & Safes,Small,500,45.0
+6,Keychain,Keys Locks & Safes,Large,35,65.0
