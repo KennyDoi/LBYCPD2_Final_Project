@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,32 +12,27 @@
 <AnchorPane prefHeight="468.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.EditStage">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcf3a9" height="568.0" stroke="BLACK" strokeType="INSIDE" width="902.0" />
-      <ImageView fx:id="logo" fitHeight="79.0" fitWidth="96.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../21CartsLogo.jpeg" />
-         </image>
-      </ImageView>
       <Text layoutX="277.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Item" textAlignment="CENTER" wrappingWidth="348.607421875">
          <font>
             <Font size="32.0" />
          </font>
       </Text>
-      <Button layoutX="821.0" layoutY="21.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="47.0" text="X">
+      <Button fx:id="exitEdit" layoutX="821.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#goExit" prefHeight="47.0" prefWidth="47.0" text="X">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Text layoutX="59.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" wrappingWidth="53.0">
+      <Text layoutX="59.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID# " wrappingWidth="53.0">
          <font>
             <Font size="22.0" />
          </font>
       </Text>
-      <Text layoutX="59.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Name" wrappingWidth="170.2724609375">
+      <Text layoutX="59.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Name" wrappingWidth="170.2724609375">
          <font>
             <Font size="22.0" />
          </font>
       </Text>
-      <Text layoutX="59.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Variant" wrappingWidth="170.2724609375">
+      <Text layoutX="59.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Variant" wrappingWidth="170.2724609375">
          <font>
             <Font size="22.0" />
          </font>
@@ -46,5 +42,19 @@
             <Font size="22.0" />
          </font>
       </Text>
+      <TextField layoutX="59.0" layoutY="218.0" prefHeight="29.0" prefWidth="754.0" />
+      <TextField layoutX="59.0" layoutY="298.0" prefHeight="29.0" prefWidth="754.0" />
+      <TextField layoutX="59.0" layoutY="384.0" prefHeight="29.0" prefWidth="108.0" />
+      <Text layoutX="265.0" layoutY="362.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stock" wrappingWidth="170.2724609375">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <TextField layoutX="255.0" layoutY="384.0" prefHeight="29.0" prefWidth="108.0" />
+      <ImageView fitHeight="94.0" fitWidth="108.0" layoutX="23.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../21CartsLogo.jpeg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
