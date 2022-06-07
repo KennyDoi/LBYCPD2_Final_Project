@@ -4,11 +4,12 @@ import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner; // Import the Scanner class to read text files
 
 public class FileIO {
-    public static ArrayList<Item> readItemFiles(){
-        ArrayList<Item> ItemList = new ArrayList<Item>();
+    public static LinkedList<Item> readItemFiles(){
+        LinkedList<Item> ItemList = new LinkedList<Item>();
         boolean isFirstLine = true;
         try {
             File obj = new File("assets/ItemDatabase.csv");
@@ -45,7 +46,7 @@ public class FileIO {
         return ItemList;
     }
 
-    public static void writeItemFiles(ArrayList<Item> ItemList){
+    public static void writeItemFiles(LinkedList<Item> ItemList){
         try {
             FileWriter myWriter = new FileWriter("assets/ItemDatabase.csv");
             myWriter.write("~~~Item Database -> id;name;category;variant;stock;price\n");

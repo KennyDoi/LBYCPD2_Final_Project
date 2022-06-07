@@ -22,7 +22,6 @@ public class Controller {
 
     @FXML
     void InventoryManagement(MouseEvent event) {
-        System.out.println("This is Inventory Management Function");
         switchScene(event,"InventoryManagementMenu", "Inventory Management Menu");
     }
 
