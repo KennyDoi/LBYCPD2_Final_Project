@@ -60,4 +60,17 @@ public class FileIO {
             e.printStackTrace();
         }
     }
+
+    public static void writeOrder(){
+        try {
+            FileWriter myWriter = new FileWriter("assets/OrderReport" + /* date +*/ ".csv");
+            myWriter.write("~~~Order Report -> date;item;category;variant;customerName;location;quantity;paymentMethod\n");
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
 }
+
+

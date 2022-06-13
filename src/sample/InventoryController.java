@@ -7,7 +7,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -91,7 +93,7 @@ public class InventoryController extends Main implements Initializable{
                 listInventory.getItems().add(pad(ItemList.get(i).id, 20) + pad(ItemList.get(i).name, 85) + pad(ItemList.get(i).variant, 45) + "P" + pad(ItemList.get(i).price, 30) + ItemList.get(i).stock);
             }
         }
-        else if (category != null){
+        else if (category != null) {
             for (int i = 0; i < ItemList.size(); i++) {
                 if (category.equals(ItemList.get(i).category)) {
                     listInventory.getItems().add(pad(ItemList.get(i).id, 20) + pad(ItemList.get(i).name, 85) + pad(ItemList.get(i).variant, 45) + "P" + pad(ItemList.get(i).price, 30) + ItemList.get(i).stock);
@@ -326,6 +328,18 @@ public class InventoryController extends Main implements Initializable{
         categoryInventory.getItems().add("ALL");
         for (int i = 0; i < categories.size(); i++) {
             categoryInventory.getItems().add(categories.get(i));
+        }
+        refresh();
+    }
+
+    public void refresh(){
+        if(!listInventory.getItems().isEmpty()){
+            VirtualFlow ch = (VirtualFlow) listInventory.getChildrenUnmodifiable().get(0);
+            Font anyFont = new Font("Consolas", 12);
+            for(int i=0; i<=ch.getCellCount(); i++){
+                Cell cell = ch.getCell(i);
+                cell.setFont(anyFont);
+            }
         }
     }
 }
