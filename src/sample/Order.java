@@ -2,9 +2,10 @@ package sample;
 
 public class Order {
     String customerName;
-    Item item;
+    String item;
     String date;
     int quantity;
     String location;
     String paymentMethod;
+    double transaction;
 }

@@ -1,16 +1,14 @@
 package sample;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.naming.ldap.InitialLdapContext;
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,10 +16,10 @@ import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 
-public class AddPopupController extends InventoryController implements Initializable {
+public class EditPopupController extends InventoryController implements Initializable {
 
     @FXML
-    public Button cancelAdd;
+    public Button cancelEdit;
     @FXML
     private TextField nameInput;
     @FXML
@@ -36,14 +34,14 @@ public class AddPopupController extends InventoryController implements Initializ
     public TableView tableView;
 
     @FXML
-    public void cancelAdd(MouseEvent mouseEvent) {
-        Stage stage = (Stage) cancelAdd.getScene().getWindow();
+    public void cancelEdit(MouseEvent mouseEvent) {
+        Stage stage = (Stage) cancelEdit.getScene().getWindow();
         stage.hide();
     }
 
 
     @FXML
-    public void confirmAdd(MouseEvent event) {
+    public void confirmEdit(MouseEvent event) {
         //Error Checking Flag
         boolean error = false;
 
@@ -84,13 +82,21 @@ public class AddPopupController extends InventoryController implements Initializ
             return;
         }
 
-        //Create new Item to add onto Itemlist
-        Item item = new Item(id, name, category, variant, stock, price);
-        ItemList.add(item);
+        //Write new item details onto ItemList
+        for (int i = 0; i < ItemList.size(); i++) {
+            if (selectedItem.id == ItemList.get(i).id){
+                ItemList.get(i).product = name;
+                ItemList.get(i).variant = variant;
+                ItemList.get(i).price = price;
+                ItemList.get(i).stock = stock;
+                ItemList.get(i).category = category;
+            }
+        }
+
 
         //Write changes done on ItemList to local CSV file
         FileIO.writeItemFiles(ItemList);
-        Stage stage = (Stage) cancelAdd.getScene().getWindow();
+        Stage stage = (Stage) cancelEdit.getScene().getWindow();
         stage.hide();
     }
 
@@ -114,6 +120,14 @@ public class AddPopupController extends InventoryController implements Initializ
         ArrayList<String> categories = removeDuplicates(ItemList, ItemList.size());
         for (int i = 0; i < categories.size(); i++) {
             categoryInventory.getItems().add(categories.get(i));
+
+            nameInput.setText(selectedItem.getProduct());
+            variantInput.setText(selectedItem.getVariant());
+            stockInput.setText(String.valueOf(selectedItem.getStock()));
+            priceInput.setText(String.valueOf(selectedItem.getPrice()));
+            categoryInventory.setValue(selectedItem.category);
+
+
         }
     }
 }

@@ -26,8 +26,9 @@ import java.util.*;
 
 public class InventoryController extends Main implements Initializable{
     public int selectedID;
-    public Item selectedItem;
+    public static Item selectedItem;
     public int index;
+    public static ArrayList<String> categories;
 
     @FXML
     public ListView<String> listInventory;
@@ -144,8 +145,11 @@ public class InventoryController extends Main implements Initializable{
         subConfirmStock.setVisible(false);
         addCheck.setSelected(false);
         subtractCheck.setSelected(false);
+
+
         String category = categoryInventory.getSelectionModel().getSelectedItem();
         System.out.println(category);
+        if (category==null){return;}
 
         if(category.equals("ALL")) {
             for (int i = 0; i < ItemList.size(); i++) {
@@ -334,8 +338,24 @@ public class InventoryController extends Main implements Initializable{
 
     @FXML
     void editItem(MouseEvent event) {
-        System.out.println(selectedItem.id);
-        getCategory();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editPopup.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.show();
+            stage.setOnHiding(new EventHandler<WindowEvent>() {
+                public void handle(WindowEvent we) {
+                    getCategory();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -373,7 +393,7 @@ public class InventoryController extends Main implements Initializable{
         }
         deleteItemButton.setDisable(true);
         editItemButton.setDisable(true);
-        addCheck.setDisable(false);
+        addCheck.setDisable(true);
         addConfirmStock.setVisible(false);
         addStockSpinner.setDisable(true);
         subtractCheck.setDisable(true);
@@ -403,7 +423,7 @@ public class InventoryController extends Main implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        ArrayList<String> categories = removeDuplicates(ItemList, ItemList.size());
+        categories = removeDuplicates(ItemList, ItemList.size());
         categoryInventory.getItems().add("ALL");
         for (int i = 0; i < categories.size(); i++) {
             categoryInventory.getItems().add(categories.get(i));
