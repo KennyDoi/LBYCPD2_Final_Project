@@ -1,8 +1,9 @@
 ~~~Item Database -> id;name;category;variant;stock;price
-1,Industrial Latex Gloves,Aprons & Potholders,Yellow,79,45.0
-2,Mini Flower Pots,Garden Pots & Planters,Black,173,87.0
+1,Industrial Latex Gloves,Aprons & Potholders,Yellow,73,45.0
+2,Mini Flower Pots,Garden Pots & Planters,Black,166,87.0
 3,Mini Flower Pots,Garden Pots & Planters,White,166,87.0
-4,Industrial Latex Gloves,Aprons & Potholders,Green,75,45.0
+4,Industrial Latex Gloves,Aprons & Potholders,Green,72,45.0
 5,Stainless Steel Door Hasp Latch,Keys Locks & Safes,Small,500,45.0
-6,123,Garden Pots & Planters,123,127,123.0
-7,123,Garden Pots & Planters,123,320,123.0
+6,Square Flower Pot 8 Inches,Garden Pots & Planters,White,10,174.0
+7,Square Flower Pot 8 Inches,Garden Pots & Planters,Black,10,180.0
+13,shovel,Garden Pots & Planters,small,106,1000.0

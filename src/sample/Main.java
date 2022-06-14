@@ -18,6 +18,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         ItemList = FileIO.readItemFiles();
+        FileIO.writeOrder();
         //FileIO.writeItemFiles(ItemList);
 
 //        for(int i=0; i<ItemList.size(); i++){
