@@ -436,5 +436,6 @@ public class InventoryController extends Main implements Initializable{
         variantColumn.setCellValueFactory(new PropertyValueFactory<>("variant"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         stockColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+
     }
 }

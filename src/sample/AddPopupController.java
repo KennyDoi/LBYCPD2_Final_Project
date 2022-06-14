@@ -36,6 +36,12 @@ public class AddPopupController extends InventoryController implements Initializ
     public TableView tableView;
 
     @FXML
+    private CheckBox confirmAddNewCategory;
+
+    @FXML
+    private TextField newTextCategory;
+
+    @FXML
     public void cancelAdd(MouseEvent mouseEvent) {
         Stage stage = (Stage) cancelAdd.getScene().getWindow();
         stage.hide();
@@ -108,6 +114,19 @@ public class AddPopupController extends InventoryController implements Initializ
         }
         return categories;
     }
+
+    @FXML
+    void showTextbox(MouseEvent event) {
+        if(!confirmAddNewCategory.isSelected()){
+            newTextCategory.setVisible(false);
+            newTextCategory.setDisable(true);
+        }
+        else {
+            newTextCategory.setVisible(true);
+            newTextCategory.setDisable(false);
+        }
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
