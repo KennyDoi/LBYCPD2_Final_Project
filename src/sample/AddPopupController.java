@@ -18,12 +18,10 @@ import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 
-public class AddPopupController extends Main implements Initializable {
+public class AddPopupController extends InventoryController implements Initializable {
 
     @FXML
     public Button cancelAdd;
-    @FXML
-    private TextField idInput;
     @FXML
     private TextField nameInput;
     @FXML
@@ -34,6 +32,8 @@ public class AddPopupController extends Main implements Initializable {
     private TextField stockInput;
     @FXML
     private ChoiceBox<String> categoryInventory;
+    @FXML
+    public TableView tableView;
 
     @FXML
     public void cancelAdd(MouseEvent mouseEvent) {
@@ -48,51 +48,50 @@ public class AddPopupController extends Main implements Initializable {
         boolean error = false;
 
         //Get info from textfields
-        String ph1 = idInput.getText().replace(" ", "").trim();
         String name = nameInput.getText().trim();
         String variant = variantInput.getText().trim();
         String ph2 = priceInput.getText().replace(" ", "").trim();
         String ph3 = stockInput.getText().replace(" ", "").trim();
         String category = categoryInventory.getSelectionModel().getSelectedItem();
 
-        System.out.println(ph1 + " " + category);
 
-        //Check if any fields are empty
+        //Textfield error catching
         if (category == null) error = true;
-        if (ph1 == null || ph1.length() <= 0) error = true;
         if (name == null || name.length() <= 0) error = true;
         if (variant == null || variant.length() <= 0) error = true;
         if (ph2 == null || ph2.length() <= 0) error = true;
         if (ph3 == null || ph3.length() <= 0) error = true;
 
+
         //Convert non-string characters to respective data type
-        int id, stock;
+        int id = 0, stock;
         double price;
         try {
-            id = Integer.parseInt(ph1);
             price = Double.parseDouble(ph2);
             stock = Integer.parseInt(ph3);
         } catch (final NumberFormatException e){return;}
 
-        //Create new Item class to add onto Itemlist
-        Item item = new Item();
-        item.id = id;
-        item.name = name;
-        item.category = category;
-        item.variant = variant;
-        item.stock = stock;
-        item.price = price;
-        ItemList.add(item);
+        //Get highest integer from current list of items
+        for (int i = 0; i < ItemList.size(); i++) {
+            if (ItemList.get(i).id > id) {
+                id = ItemList.get(i).id;
+            }
+            id+=1;
+        }
 
         //Error catch
         if (error) {
             return;
         }
 
+        //Create new Item to add onto Itemlist
+        Item item = new Item(id, name, category, variant, stock, price);
+        ItemList.add(item);
+
         //Write changes done on ItemList to local CSV file
         FileIO.writeItemFiles(ItemList);
         Stage stage = (Stage) cancelAdd.getScene().getWindow();
-        stage.close();
+        stage.hide();
     }
 
 

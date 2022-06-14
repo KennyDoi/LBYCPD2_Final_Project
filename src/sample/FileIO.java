@@ -28,13 +28,7 @@ public class FileIO {
                 int stockInt = Integer.parseInt(attribute[4]);
                 double priceDouble = Double.parseDouble(attribute[5]);
 
-                Item item = new Item();
-                item.id = idInt;
-                item.name = attribute[1];
-                item.category = attribute[2];
-                item.variant = attribute[3];
-                item.stock = stockInt;
-                item.price = priceDouble;
+                Item item = new Item(idInt, attribute[1], attribute[2], attribute[3], stockInt, priceDouble);
 
                 ItemList.add(item);
             }
@@ -51,7 +45,7 @@ public class FileIO {
             FileWriter myWriter = new FileWriter("assets/ItemDatabase.csv");
             myWriter.write("~~~Item Database -> id;name;category;variant;stock;price\n");
             for (int i = 0; i < ItemList.size(); i++) {
-                myWriter.write(ItemList.get(i).id + "," + ItemList.get(i).name + "," + ItemList.get(i).category + "," + ItemList.get(i).variant + "," + ItemList.get(i).stock + "," + ItemList.get(i).price + "\n");
+                myWriter.write(ItemList.get(i).id + "," + ItemList.get(i).product + "," + ItemList.get(i).category + "," + ItemList.get(i).variant + "," + ItemList.get(i).stock + "," + ItemList.get(i).price + "\n");
             }
             myWriter.close();
             System.out.println("Successfully wrote to the file.");

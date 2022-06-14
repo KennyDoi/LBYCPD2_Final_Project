@@ -24,7 +24,6 @@
             <Font size="23.0" />
          </font>
       </Text>
-      <TextField fx:id="idInput" layoutX="170.0" layoutY="155.0" prefHeight="25.0" prefWidth="245.0" />
       <TextField fx:id="nameInput" layoutX="170.0" layoutY="194.0" prefHeight="25.0" prefWidth="245.0" />
       <TextField fx:id="variantInput" layoutX="170.0" layoutY="232.0" prefHeight="25.0" prefWidth="245.0" />
       <TextField fx:id="priceInput" layoutX="169.0" layoutY="270.0" prefHeight="25.0" prefWidth="245.0" />
@@ -51,13 +50,8 @@
             <Font size="16.0" />
          </font>
       </Text>
-      <Text layoutX="49.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item I.D." wrappingWidth="87.607421875">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <ChoiceBox fx:id="categoryInventory" layoutX="169.0" layoutY="117.0" prefHeight="2.0" prefWidth="245.0" />
-      <Text layoutX="49.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categories" wrappingWidth="87.607421875">
+      <ChoiceBox fx:id="categoryInventory" layoutX="169.0" layoutY="152.0" prefHeight="2.0" prefWidth="245.0" />
+      <Text layoutX="49.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category" wrappingWidth="87.607421875">
          <font>
             <Font size="16.0" />
          </font>

@@ -1,5 +1,8 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -7,10 +10,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 import java.awt.event.ActionEvent;
 import java.util.Formatter;
@@ -21,7 +26,7 @@ import java.util.*;
 
 public class InventoryController extends Main implements Initializable{
     public int selectedID;
-    public String selectedItem;
+    public Item selectedItem;
     public int index;
 
     @FXML
@@ -55,56 +60,114 @@ public class InventoryController extends Main implements Initializable{
     private Button subConfirmStock;
 
     @FXML
+    public TableView<Item> tableView;
+
+    @FXML
+    public TableColumn<Item, Integer> idColumn;
+
+    @FXML
+    public TableColumn<Item, String> prodColumn;
+
+    @FXML
+    public TableColumn<Item, String> variantColumn;
+
+    @FXML
+    public TableColumn<Item, Double> priceColumn;
+
+    @FXML
+    public TableColumn<Item, Integer> stockColumn;
+
+    @FXML
+    public TableColumn<Item, String> catColumn;
+
+
+    @FXML
     void goMenu(MouseEvent event) {
         switchScene(event,"MainMenu", "Menu");
     }
 
     @FXML
     void categoryClicked(MouseEvent event) {
-        selectedItem = listInventory.getSelectionModel().getSelectedItem();
-        String[] selectedIDString = selectedItem.split(" ");
-        selectedID = Integer.parseInt(selectedIDString[0]);
+        selectedItem = tableView.getSelectionModel().getSelectedItem();
         if(selectedItem != null){
             deleteItemButton.setDisable(false);
             editItemButton.setDisable(false);
             addCheck.setDisable(false);
             subtractCheck.setDisable(false);
+            System.out.println(selectedItem.category);
+            return;
         }
     }
 
+
     @FXML
-    void getCategory(MouseEvent event) {
-        listInventory.getItems().clear();
+    public void getCategory(MouseEvent event) {
+        tableView.getItems().clear();
         deleteItemButton.setDisable(true);
         addCheck.setDisable(true);
         addConfirmStock.setVisible(false);
         addStockSpinner.setDisable(true);
+        editItemButton.setDisable(true);
         subtractCheck.setDisable(true);
         subStockSpinner.setDisable(true);
         subConfirmStock.setVisible(false);
         addCheck.setSelected(false);
         subtractCheck.setSelected(false);
-
         String category = categoryInventory.getSelectionModel().getSelectedItem();
+        System.out.println(category);
+
         if(category.equals("ALL")) {
             for (int i = 0; i < ItemList.size(); i++) {
-                listInventory.getItems().add(pad(ItemList.get(i).id, 20) + pad(ItemList.get(i).name, 85) + pad(ItemList.get(i).variant, 45) + "P" + pad(ItemList.get(i).price, 30) + ItemList.get(i).stock);
+                tableView.getItems().add(ItemList.get(i));
             }
         }
         else if (category != null){
             for (int i = 0; i < ItemList.size(); i++) {
                 if (category.equals(ItemList.get(i).category)) {
-                    listInventory.getItems().add(pad(ItemList.get(i).id, 20) + pad(ItemList.get(i).name, 85) + pad(ItemList.get(i).variant, 45) + "P" + pad(ItemList.get(i).price, 30) + ItemList.get(i).stock);
+                    tableView.getItems().add(ItemList.get(i));
                 }
             }
         }
+        selectedItem=null;
     }
+
+    @FXML
+    public void getCategory() {
+        tableView.getItems().clear();
+        deleteItemButton.setDisable(true);
+        addCheck.setDisable(true);
+        addConfirmStock.setVisible(false);
+        addStockSpinner.setDisable(true);
+        editItemButton.setDisable(true);
+        subtractCheck.setDisable(true);
+        subStockSpinner.setDisable(true);
+        subConfirmStock.setVisible(false);
+        addCheck.setSelected(false);
+        subtractCheck.setSelected(false);
+        String category = categoryInventory.getSelectionModel().getSelectedItem();
+        System.out.println(category);
+
+        if(category.equals("ALL")) {
+            for (int i = 0; i < ItemList.size(); i++) {
+                tableView.getItems().add(ItemList.get(i));
+            }
+        }
+        else if (category != null){
+            for (int i = 0; i < ItemList.size(); i++) {
+                if (category.equals(ItemList.get(i).category)) {
+                    tableView.getItems().add(ItemList.get(i));
+                }
+            }
+        }
+        selectedItem=null;
+    }
+
 
     @FXML
     void addStock(MouseEvent event) {
         if(!addCheck.isSelected()){
             for(int i=0; i<ItemList.size(); i++){
-                if(ItemList.get(i).id == selectedID){
+                if(ItemList.get(i).id == selectedItem.id){
                     index = i;
                     break;
                 }
@@ -123,23 +186,24 @@ public class InventoryController extends Main implements Initializable{
     @FXML
     void confirmAdd(MouseEvent event) {
         ItemList.get(index).stock += addStockSpinner.getValue();
-        listInventory.getItems().clear();
+        tableView.getItems().clear();
         String category = categoryInventory.getSelectionModel().getSelectedItem();
         if(category.equals("ALL")) {
             for (int i = 0; i < ItemList.size(); i++) {
-                listInventory.getItems().add(pad(ItemList.get(i).id, 20) + pad(ItemList.get(i).name, 85) + pad(ItemList.get(i).variant, 45) + "P" + pad(ItemList.get(i).price, 30) + ItemList.get(i).stock);
+                tableView.getItems().add(ItemList.get(i));
             }
         }
         else if (category != null){
             for (int i = 0; i < ItemList.size(); i++) {
                 if (category.equals(ItemList.get(i).category)) {
-                    listInventory.getItems().add(pad(ItemList.get(i).id, 20) + pad(ItemList.get(i).name, 85) + pad(ItemList.get(i).variant, 45) + "P" + pad(ItemList.get(i).price, 30) + ItemList.get(i).stock);
+                    tableView.getItems().add(ItemList.get(i));
                 }
             }
         }
         FileIO.writeItemFiles(ItemList);
         deleteItemButton.setDisable(true);
         addCheck.setDisable(true);
+        editItemButton.setDisable(true);
         addConfirmStock.setVisible(false);
         addStockSpinner.setDisable(true);
         subtractCheck.setDisable(true);
@@ -152,23 +216,24 @@ public class InventoryController extends Main implements Initializable{
     @FXML
     void confirmSub(MouseEvent event) {
         ItemList.get(index).stock -= subStockSpinner.getValue();
-        listInventory.getItems().clear();
+        tableView.getItems().clear();
         String category = categoryInventory.getSelectionModel().getSelectedItem();
         if(category.equals("ALL")) {
             for (int i = 0; i < ItemList.size(); i++) {
-                listInventory.getItems().add(pad(ItemList.get(i).id, 20) + pad(ItemList.get(i).name, 85) + pad(ItemList.get(i).variant, 45) + "P" + pad(ItemList.get(i).price, 30) + ItemList.get(i).stock);
+                tableView.getItems().add(ItemList.get(i));
             }
         }
         else if (category != null){
             for (int i = 0; i < ItemList.size(); i++) {
                 if (category.equals(ItemList.get(i).category)) {
-                    listInventory.getItems().add(pad(ItemList.get(i).id, 20) + pad(ItemList.get(i).name, 85) + pad(ItemList.get(i).variant, 45) + "P" + pad(ItemList.get(i).price, 30) + ItemList.get(i).stock);
+                    tableView.getItems().add(ItemList.get(i));
                 }
             }
         }
         FileIO.writeItemFiles(ItemList);
         deleteItemButton.setDisable(true);
         addCheck.setDisable(true);
+        editItemButton.setDisable(true);
         addConfirmStock.setVisible(false);
         addStockSpinner.setDisable(true);
         subtractCheck.setDisable(true);
@@ -182,7 +247,7 @@ public class InventoryController extends Main implements Initializable{
     void SubStock(MouseEvent event) {
         if(subtractCheck.isSelected()){
             for(int i=0; i<ItemList.size(); i++){
-                if(ItemList.get(i).id == selectedID){
+                if(ItemList.get(i).id == selectedItem.id){
                     index = i;
                     break;
                 }
@@ -257,6 +322,11 @@ public class InventoryController extends Main implements Initializable{
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.show();
+            stage.setOnHiding(new EventHandler<WindowEvent>() {
+                public void handle(WindowEvent we) {
+                    getCategory();
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -264,37 +334,36 @@ public class InventoryController extends Main implements Initializable{
 
     @FXML
     void editItem(MouseEvent event) {
-
+        System.out.println(selectedItem.id);
+        getCategory();
     }
 
     @FXML
     void deleteItem(MouseEvent event) {
-        String[] selectedIDString = selectedItem.split(" ");
-        selectedID = Integer.parseInt(selectedIDString[0]);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Item");
-        alert.setHeaderText("Confirm Delete ID?");
-        alert.setContentText("Delete ID Number " + selectedID);
+        alert.setHeaderText("Confirm Delete Item?");
+        alert.setContentText("Delete product " + selectedItem.product + " " + selectedItem.variant + "?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             for(int i=0; i<ItemList.size(); i++){
-                if(ItemList.get(i).id == selectedID){
+                if(ItemList.get(i).id == selectedItem.id){
                     ItemList.remove(i);
                     FileIO.writeItemFiles(ItemList);
                 }
             }
-            listInventory.getItems().clear();
+            tableView.getItems().clear();
             String category = categoryInventory.getSelectionModel().getSelectedItem();
             if(category.equals("ALL")) {
                 for (int i = 0; i < ItemList.size(); i++) {
-                    listInventory.getItems().add(pad(ItemList.get(i).id, 20) + pad(ItemList.get(i).name, 85) + pad(ItemList.get(i).variant, 45) + "P" + pad(ItemList.get(i).price, 30) + ItemList.get(i).stock);
+                    tableView.getItems().add(ItemList.get(i));
                 }
             }
             else if (category != null){
                 for (int i = 0; i < ItemList.size(); i++) {
                     if (category.equals(ItemList.get(i).category)) {
-                        listInventory.getItems().add(pad(ItemList.get(i).id, 20) + pad(ItemList.get(i).name, 85) + pad(ItemList.get(i).variant, 45) + "P" + pad(ItemList.get(i).price, 30) + ItemList.get(i).stock);
+                        tableView.getItems().add(ItemList.get(i));
                     }
                 }
             }
@@ -302,6 +371,17 @@ public class InventoryController extends Main implements Initializable{
         else {
             alert.close();
         }
+        deleteItemButton.setDisable(true);
+        editItemButton.setDisable(true);
+        addCheck.setDisable(false);
+        addConfirmStock.setVisible(false);
+        addStockSpinner.setDisable(true);
+        subtractCheck.setDisable(true);
+        subStockSpinner.setDisable(true);
+        subConfirmStock.setVisible(false);
+        addCheck.setSelected(false);
+        subtractCheck.setSelected(false);
+        selectedItem = null;
 
     }
 
@@ -320,6 +400,7 @@ public class InventoryController extends Main implements Initializable{
         }
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         ArrayList<String> categories = removeDuplicates(ItemList, ItemList.size());
@@ -327,5 +408,13 @@ public class InventoryController extends Main implements Initializable{
         for (int i = 0; i < categories.size(); i++) {
             categoryInventory.getItems().add(categories.get(i));
         }
+
+        System.out.println("test");
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        prodColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
+        catColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+        variantColumn.setCellValueFactory(new PropertyValueFactory<>("variant"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        stockColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
     }
 }
