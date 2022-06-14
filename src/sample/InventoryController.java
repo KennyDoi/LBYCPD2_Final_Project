@@ -117,6 +117,8 @@ public class InventoryController extends Main implements Initializable{
         String category = categoryInventory.getSelectionModel().getSelectedItem();
         System.out.println(category);
 
+        if (category==null) return;
+
         if(category.equals("ALL")) {
             for (int i = 0; i < ItemList.size(); i++) {
                 tableView.getItems().add(ItemList.get(i));
@@ -329,6 +331,7 @@ public class InventoryController extends Main implements Initializable{
             stage.setOnHiding(new EventHandler<WindowEvent>() {
                 public void handle(WindowEvent we) {
                     getCategory();
+                    refreshCategories();
                 }
             });
         } catch (IOException e) {
@@ -351,6 +354,7 @@ public class InventoryController extends Main implements Initializable{
             stage.setOnHiding(new EventHandler<WindowEvent>() {
                 public void handle(WindowEvent we) {
                     getCategory();
+                    refreshCategories();
                 }
             });
         } catch (IOException e) {
@@ -402,6 +406,7 @@ public class InventoryController extends Main implements Initializable{
         addCheck.setSelected(false);
         subtractCheck.setSelected(false);
         selectedItem = null;
+        refreshCategories();
 
     }
 
@@ -420,15 +425,20 @@ public class InventoryController extends Main implements Initializable{
         }
     }
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle){
+    void refreshCategories(){
+        FileIO.readItemFiles();
+        categoryInventory.getItems().clear();
         categories = removeDuplicates(ItemList, ItemList.size());
         categoryInventory.getItems().add("ALL");
         for (int i = 0; i < categories.size(); i++) {
             categoryInventory.getItems().add(categories.get(i));
         }
+    }
 
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle){
+        refreshCategories();
         System.out.println("test");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         prodColumn.setCellValueFactory(new PropertyValueFactory<>("product"));

@@ -50,23 +50,30 @@ public class AddPopupController extends InventoryController implements Initializ
 
     @FXML
     public void confirmAdd(MouseEvent event) {
-        //Error Checking Flag
+        //Initializing Variables
         boolean error = false;
+        String category;
 
         //Get info from textfields
         String name = nameInput.getText().trim();
         String variant = variantInput.getText().trim();
         String ph2 = priceInput.getText().replace(" ", "").trim();
         String ph3 = stockInput.getText().replace(" ", "").trim();
-        String category = categoryInventory.getSelectionModel().getSelectedItem();
+        if (confirmAddNewCategory.isSelected()){category = newTextCategory.getText();}
+        else {category = categoryInventory.getSelectionModel().getSelectedItem();}
 
 
         //Textfield error catching
-        if (category == null) error = true;
         if (name == null || name.length() <= 0) error = true;
         if (variant == null || variant.length() <= 0) error = true;
         if (ph2 == null || ph2.length() <= 0) error = true;
         if (ph3 == null || ph3.length() <= 0) error = true;
+        if (confirmAddNewCategory.isSelected()){
+            if (newTextCategory == null) error = true;
+        }
+        else if (!confirmAddNewCategory.isSelected()) {
+            if (categoryInventory == null) error = true;
+        }
 
 
         //Convert non-string characters to respective data type
