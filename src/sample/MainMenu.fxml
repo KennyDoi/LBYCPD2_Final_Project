@@ -18,7 +18,7 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <AnchorPane prefHeight="708.0" prefWidth="1017.0">
+      <AnchorPane fx:id="anchorid" prefHeight="708.0" prefWidth="1017.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#515151" height="768.0" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcf3a9" height="736.0" layoutX="24.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" width="976.0" />

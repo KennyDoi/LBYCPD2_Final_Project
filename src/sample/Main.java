@@ -6,19 +6,25 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.LinkedList;
 
 public class Main extends Application {
     public static LinkedList<Item> ItemList;
+    public static LinkedList<Order> orderList;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
         Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
         primaryStage.setTitle("21 Carts System");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         ItemList = FileIO.readItemFiles();
-        FileIO.writeOrder();
+        orderList = FileIO.readOrder();
         //FileIO.writeItemFiles(ItemList);
 
 //        for(int i=0; i<ItemList.size(); i++){

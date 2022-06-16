@@ -27,5 +27,4 @@ public class Item {
     public String getVariant(){return variant;}
     public int getStock(){return stock;}
     public double getPrice(){return price;}
-
 }
