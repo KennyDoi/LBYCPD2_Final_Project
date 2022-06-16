@@ -18,19 +18,25 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 
 public class OrderController extends Main implements Initializable {
 
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
-    String currTime = LocalDateTime.now().format(dtf);
-    LocalDateTime test1;
-    LocalDateTime test2;
-    LocalDateTime today;
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+    String currTime = LocalDate.now().format(dtf);
+    LocalDate test1;
+    LocalDate test2;
+    LocalDate today = LocalDate.parse(currTime);
+    LinkedList<Order> reportList = new LinkedList<Order>();
+
+    @FXML
+    private DatePicker datePicker;
 
     @FXML
     private TableView orderTable;
@@ -45,7 +51,14 @@ public class OrderController extends Main implements Initializable {
     public static Button removeOrder;
 
     @FXML
-    public void getSelectedDate(MouseEvent event){
+    private Button generateReports;
+
+
+    @FXML
+    public void generateReportsFunction(MouseEvent event){
+        if (datePicker==null) return;
+
+        LocalDate date = datePicker.getValue();
 
     }
 
