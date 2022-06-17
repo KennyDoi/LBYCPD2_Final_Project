@@ -120,6 +120,8 @@ public class AddOrderPopupController extends OrderController implements Initiali
 
     @FXML
     void confirmAdd(MouseEvent event) {
+        boolean error = false;
+
         String orderID = orderNumInput.getText().trim();
         String customerName = customerNameInput.getText().trim();
         String nameItem = itemName.getSelectionModel().getSelectedItem();
@@ -129,6 +131,14 @@ public class AddOrderPopupController extends OrderController implements Initiali
         LocalDate date = dateOrdered.getValue();
         String itemFinal = nameItem + ";" + variantItem;
 
+        //TextField and choiceBox error catching
+        if (orderID == null || orderID.length() <= 0) error = true;
+        if (customerName == null || orderID.length() <= 0) error = true;
+        if (nameItem == null || orderID.length() <= 0) error = true;
+        if (variantItem == null || orderID.length() <= 0) error = true;
+        if (totalPriceString == null || orderID.length() <= 0) error = true;
+        if (quantityString == null || orderID.length() <= 0) error = true;
+
         //convert to int or double
         int quantity;
         double totalPrice;
@@ -137,6 +147,11 @@ public class AddOrderPopupController extends OrderController implements Initiali
             quantity = Integer.parseInt(quantityString);
             totalPrice = Double.parseDouble(totalPriceString);
         } catch (final NumberFormatException e){return;}
+
+        //Error catch
+        if (error) {
+            return;
+        }
 
         Order order = new Order(orderID, customerName, itemFinal, date, quantity, totalPrice);
         orderList.add(order);

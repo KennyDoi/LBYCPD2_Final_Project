@@ -407,7 +407,6 @@ public class InventoryController extends Main implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         refreshCategories();
-        System.out.println("test");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         prodColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
         catColumn.setCellValueFactory(new PropertyValueFactory<>("category"));

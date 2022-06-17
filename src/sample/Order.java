@@ -10,8 +10,8 @@ public class Order {
     int quantity;
     double totalPrice;
 
-    public Order(String orderNo, String customer, String item, LocalDate date, int quantity, double totalPrice){
-        this.orderID = orderNo;
+    public Order(String orderID, String item, String customer, LocalDate date, int quantity, double totalPrice){
+        this.orderID = orderID;
         this.customer = customer;
         this.item = item;
         this.date = date;
@@ -23,5 +23,6 @@ public class Order {
     public String getCustomer(){return customer;}
     public String getItem(){return item;}
     public LocalDate getDate(){return date;}
+    public int getQuantity(){return quantity;}
     public double getTotalPrice(){return totalPrice;}
 }

@@ -6,10 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.LinkedList;
 
 public class Main extends Application {
@@ -25,13 +21,12 @@ public class Main extends Application {
         primaryStage.show();
         ItemList = FileIO.readItemFiles();
         orderList = FileIO.readOrder();
-        //FileIO.writeItemFiles(ItemList);
-
-//        for(int i=0; i<ItemList.size(); i++){
-//            System.out.println(ItemList.get(i).id+ pad(ItemList.get(i).name, 90) + pad(ItemList.get(i).variant, 20) + pad("P" + ItemList.get(i).price, 20) + pad(ItemList.get(i).stock, 20));
-//        }
-//        System.out.println(pad("Bacon", 7) + pad("steakkkkk", 10));
-//        System.out.println(pad("Cut", 7) + pad("steakkkkk", 10));
+//        System.out.println(orderList.get(0).orderID);
+////        System.out.println(orderList.get(0).item);
+////        System.out.println(orderList.get(0).customer);
+////        System.out.println(orderList.get(0).totalPrice);
+////        System.out.println(orderList.get(0).quantity);
+////        System.out.println(orderList.get(0).date.toString());
     }
 
     public LinkedList<Item> getItemList(){
@@ -41,36 +36,4 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
-//    String pad(String x, int len){
-//        int strlen = x.length();
-//        StringBuilder out = new StringBuilder();
-//        for(int i=0; i<len-strlen; i++){
-//            out.append(' ');
-//        }
-//        out.append(x);
-//        return out.toString();
-//    }
-//
-//    String pad(int x, int len){
-//        String temp = Integer.toString(x);
-//        int strlen = temp.length();
-//        StringBuilder out = new StringBuilder();
-//        for(int i=0; i<len-strlen; i++){
-//            out.append(' ');
-//        }
-//        out.append(temp);
-//        return out.toString();
-//    }
-//
-//    String pad(double x, int len){
-//        String temp = Double.toString(x);
-//        int strlen = temp.length();
-//        StringBuilder out = new StringBuilder();
-//        for(int i=0; i<len-strlen; i++){
-//            out.append(' ');
-//        }
-//        out.append(temp);
-//        return out.toString();
-//    }
 }

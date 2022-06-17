@@ -9,11 +9,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.*;
 
 import javax.swing.*;
+import javax.xml.stream.FactoryConfigurationError;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +43,7 @@ public class OrderController extends Main implements Initializable {
     private DatePicker endDatePicker;
 
     @FXML
-    private TableView orderTable;
+    private TableView<Order> orderTable;
 
     @FXML
     public static Button addOrder;
@@ -50,6 +53,24 @@ public class OrderController extends Main implements Initializable {
 
     @FXML
     private Button generateReports;
+
+    @FXML
+    private TableColumn<Order, String> idColumn;
+
+    @FXML
+    private TableColumn<Order, String> itemColumn;
+
+    @FXML
+    private TableColumn<Order, String> customerColumn;
+
+    @FXML
+    private TableColumn<Order, LocalDate> dateColumn;
+
+    @FXML
+    private TableColumn<Order, Integer> quantityColumn;
+
+    @FXML
+    private TableColumn<Order, Double> priceColumn;
 
 
     @FXML
@@ -115,6 +136,15 @@ public class OrderController extends Main implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         LocalDate now = LocalDate.now();
+        for (int i = 0; i < orderList.size(); i++) {
+            orderTable.getItems().add(orderList.get(i));
+        }
         endDatePicker.setValue(now);
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("orderID"));
+        itemColumn.setCellValueFactory(new PropertyValueFactory<>("item"));
+        customerColumn.setCellValueFactory(new PropertyValueFactory<>("customer"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
     }
 }

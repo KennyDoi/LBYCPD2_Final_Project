@@ -11,7 +11,6 @@ import java.util.Scanner; // Import the Scanner class to read text files
 public class FileIO {
     public static LinkedList<Item> readItemFiles(){
         LinkedList<Item> ItemList = new LinkedList<Item>();
-        LinkedList<Order> orderList = new LinkedList<Order>();
         boolean isFirstLine = true;
         try {
             File obj = new File("assets/ItemDatabase.csv");
@@ -73,6 +72,9 @@ public class FileIO {
                 }
                 String[] attribute = data.split(",");
 
+//                String[] dateNotSplit = data.split("/");
+//                LocalDate date = LocalDate.parse(dateNotSplit[2] + "-" + dateNotSplit[0] + "-" + dateNotSplit[1]);
+
                 LocalDate date = LocalDate.parse(attribute[3]);
                 int quantity = Integer.parseInt(attribute[4]);
                 double priceDouble = Double.parseDouble(attribute[5]);
@@ -96,6 +98,7 @@ public class FileIO {
                 myWriter.write(orderList.get(i).orderID + "," + orderList.get(i).item + "," + orderList.get(i).customer + "," + orderList.get(i).date + "," + orderList.get(i).quantity + "," + orderList.get(i).totalPrice + "\n");
             }
             myWriter.close();
+            System.out.println("Successfully wrote to the OrderReport csv.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
