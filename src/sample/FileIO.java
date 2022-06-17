@@ -3,7 +3,7 @@ import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner; // Import the Scanner class to read text files
@@ -56,6 +56,7 @@ public class FileIO {
             e.printStackTrace();
         }
     }
+
     public static LinkedList<Order> readOrder(){
         LinkedList<Order> orderList = new LinkedList<Order>();
         boolean isFirstLine = true;
@@ -72,12 +73,11 @@ public class FileIO {
                 }
                 String[] attribute = data.split(",");
 
-                int orderNo = Integer.parseInt(attribute[0]);
-                LocalDateTime date = LocalDateTime.parse(attribute[3]);
+                LocalDate date = LocalDate.parse(attribute[3]);
                 int quantity = Integer.parseInt(attribute[4]);
                 double priceDouble = Double.parseDouble(attribute[5]);
 
-                Order order = new Order(orderNo, attribute[1], attribute[2], date, quantity, priceDouble);
+                Order order = new Order(attribute[0], attribute[1], attribute[2], date, quantity, priceDouble);
                 orderList.add(order);
             }
             reader.close();
@@ -91,9 +91,9 @@ public class FileIO {
     public static void writeOrder(LinkedList<Order> orderList){
         try {
             FileWriter myWriter = new FileWriter("assets/OrderReport.csv");
-            myWriter.write("~~~Order Report -> orderNo;item;customer;date;quantity;totalPrice\n");
+            myWriter.write("~~~Order Report -> orderID;item;customer;date;quantity;totalPrice\n");
             for (int i = 0; i < orderList.size(); i++) {
-                myWriter.write(orderList.get(i).orderNo + "," + orderList.get(i).item + "," + orderList.get(i).customer + "," + orderList.get(i).date + "," + orderList.get(i).quantity + "," + orderList.get(i).totalPrice + "\n");
+                myWriter.write(orderList.get(i).orderID + "," + orderList.get(i).item + "," + orderList.get(i).customer + "," + orderList.get(i).date + "," + orderList.get(i).quantity + "," + orderList.get(i).totalPrice + "\n");
             }
             myWriter.close();
         } catch (IOException e) {

@@ -1,1 +1,2 @@
-~~~Order Report -> date;item;category;variant;customerName;location;quantity;paymentMethod
+~~~Order Report -> orderID;item;customer;date;quantity;totalPrice
+rdgssdb23,Mini Flower Pots;Black,sdrgsrrg,2022-06-17,3,2000.0

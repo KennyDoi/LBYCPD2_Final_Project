@@ -271,38 +271,6 @@ public class InventoryController extends Main implements Initializable{
 
     }
 
-    String pad(String x, int len){
-        int strlen = x.length();
-        StringBuilder out = new StringBuilder();
-        out.append(x);
-        for(int i=0; i<len-strlen; i++){
-            out.append(' ');
-        }
-        return out.toString();
-    }
-
-    String pad(int x, int len){
-        String temp = Integer.toString(x);
-        int strlen = temp.length();
-        StringBuilder out = new StringBuilder();
-        out.append(temp);
-        for(int i=0; i<len-strlen; i++){
-            out.append(' ');
-        }
-        return out.toString();
-    }
-
-    String pad(double x, int len){
-        String temp = Double.toString(x);
-        int strlen = temp.length();
-        StringBuilder out = new StringBuilder();
-        out.append(temp);
-        for(int i=0; i<len-strlen; i++){
-            out.append(' ');
-        }
-        return out.toString();
-    }
-
     public static ArrayList<String> removeDuplicates(LinkedList<Item> ItemLists, int n) {
         ArrayList<String> categories = new ArrayList<String>();
         HashMap<String, Boolean> mp = new HashMap<>();
@@ -379,7 +347,7 @@ public class InventoryController extends Main implements Initializable{
             }
             tableView.getItems().clear();
             String category = categoryInventory.getSelectionModel().getSelectedItem();
-            if(category.equals("ALL")) {
+            if(category == "ALL") {
                 for (int i = 0; i < ItemList.size(); i++) {
                     tableView.getItems().add(ItemList.get(i));
                 }

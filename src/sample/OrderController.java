@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -36,16 +37,16 @@ public class OrderController extends Main implements Initializable {
     LinkedList<Order> reportList = new LinkedList<Order>();
 
     @FXML
-    private DatePicker datePicker;
+    private DatePicker startDatePicker;
+
+    @FXML
+    private DatePicker endDatePicker;
 
     @FXML
     private TableView orderTable;
 
     @FXML
     public static Button addOrder;
-
-    @FXML
-    public static DatePicker dp;
 
     @FXML
     public static Button removeOrder;
@@ -56,16 +57,16 @@ public class OrderController extends Main implements Initializable {
 
     @FXML
     public void generateReportsFunction(MouseEvent event){
-        if (datePicker==null) return;
-
-        LocalDate date = datePicker.getValue();
-
+        if (startDatePicker == null) return;
+        if (endDatePicker == null) return;
+        LocalDate startDate = startDatePicker.getValue();
+        LocalDate endDate = endDatePicker.getValue();
     }
 
     @FXML
     public void addOrderAction(MouseEvent event){
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addOrder.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddOrderPopup.fxml"));
             Parent root = (Parent) fxmlLoader.load();
 
             Scene scene = new Scene(root);
@@ -116,6 +117,7 @@ public class OrderController extends Main implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        LocalDate now = LocalDate.now();
+        endDatePicker.setValue(now);
     }
 }

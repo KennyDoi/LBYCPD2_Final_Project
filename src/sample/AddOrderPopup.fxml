@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="28.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AddOrderPopupController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#515151" height="455.0" stroke="BLACK" strokeType="INSIDE" width="463.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcf3a9" height="424.0" layoutX="16.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" width="431.0" />
+      <ImageView fx:id="logo" fitHeight="71.0" fitWidth="98.0" layoutX="359.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../21CartsLogo.jpeg" />
+         </image>
+      </ImageView>
+      <Text layoutX="39.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Order" textAlignment="CENTER" wrappingWidth="348.607421875">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <TextField fx:id="orderNumInput" layoutX="160.0" layoutY="116.0" prefHeight="25.0" prefWidth="245.0" />
+      <TextField fx:id="quantityInput" layoutX="160.0" layoutY="325.0" prefHeight="25.0" prefWidth="48.0" />
+      <Button fx:id="confirmAdd" layoutX="252.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#confirmAdd" prefHeight="21.0" prefWidth="80.0" text="Confirm" />
+      <Button fx:id="cancelAdd" layoutX="348.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#cancelAdd" prefHeight="25.0" prefWidth="80.0" text="Cancel" />
+      <Text layoutX="41.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Name" wrappingWidth="103.607421875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="41.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity" wrappingWidth="103.607421875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="41.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Ordered" wrappingWidth="103.607421875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="41.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order No." wrappingWidth="87.607421875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="newTextCategory" layoutX="169.0" layoutY="152.0" prefHeight="25.0" prefWidth="245.0" visible="false" />
+      <Text layoutX="41.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Category" wrappingWidth="103.607421875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <DatePicker fx:id="dateOrdered" layoutX="160.0" layoutY="362.0" />
+      <Text layoutX="41.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Variation" wrappingWidth="103.607421875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <ChoiceBox fx:id="categoryInventory" layoutX="160.0" layoutY="197.0" prefHeight="25.0" prefWidth="245.0" />
+      <ChoiceBox fx:id="itemName" disable="true" layoutX="160.0" layoutY="226.0" prefHeight="25.0" prefWidth="245.0" />
+      <ChoiceBox fx:id="itemVariant" disable="true" layoutX="160.0" layoutY="258.0" prefHeight="25.0" prefWidth="245.0" />
+      <Button fx:id="confirmCategoryButton" layoutX="414.0" layoutY="199.0" mnemonicParsing="false" onMousePressed="#confirmCategory" text="✓">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
+      <Button fx:id="confirmItemNameButton" disable="true" layoutX="414.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#confirmItemName" text="✓">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
+      <Text layoutX="34.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Name" wrappingWidth="116.607421875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="customerNameInput" layoutX="160.0" layoutY="152.0" prefHeight="25.0" prefWidth="245.0" />
+      <Text layoutX="41.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Price" wrappingWidth="103.607421875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="totalPriceInput" layoutX="160.0" layoutY="293.0" prefHeight="25.0" prefWidth="104.0" />
+   </children>
+</AnchorPane>

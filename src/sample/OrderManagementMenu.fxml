@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" prefHeight="768.0" prefWidth="1171.0" vgap="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.OrderController">
+<GridPane alignment="center" hgap="10" prefHeight="768.0" prefWidth="1171.0" vgap="10" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.OrderController">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -41,7 +41,7 @@
                   <Font size="32.0" />
                </font>
             </Text>
-            <Button fx:id="addOrder" layoutX="967.0" layoutY="591.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="164.0" text="Add Order">
+            <Button fx:id="addOrder" layoutX="967.0" layoutY="591.0" mnemonicParsing="false" onMouseClicked="#addOrderAction" prefHeight="19.0" prefWidth="164.0" text="Add Order">
                <font>
                   <Font size="22.0" />
                </font>
@@ -71,13 +71,24 @@
                   <TableColumn fx:id="priceColumn" editable="false" prefWidth="86.0" text="Total Price" />
                </columns>
             </TableView>
-            <DatePicker fx:id="datePicker" layoutX="967.0" layoutY="339.0" prefHeight="25.0" prefWidth="164.0" />
-            <Text layoutX="967.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generate reports since:">
+            <DatePicker fx:id="startDatePicker" layoutX="967.0" layoutY="285.0" prefHeight="25.0" prefWidth="164.0" promptText="Enter a date" />
+            <Text layoutX="967.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generate reports since:">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Button fx:id="generateReports" layoutX="967.0" layoutY="397.0" mnemonicParsing="false" onMouseClicked="#generateReportsFunction" prefHeight="17.0" prefWidth="164.0" text="Generate" />
+            <Text layoutX="967.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date:">
                <font>
                   <Font size="13.0" />
                </font>
             </Text>
-            <Button fx:id="generateReports" layoutX="967.0" layoutY="374.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="164.0" text="Generate" />
+            <Text layoutX="967.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date:">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
+            <DatePicker fx:id="endDatePicker" layoutX="966.0" layoutY="353.0" prefHeight="25.0" prefWidth="164.0" promptText="Enter a date" />
          </children>
       </AnchorPane>
    </children>
