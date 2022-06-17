@@ -19,7 +19,7 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public String getOrderNo(){return orderID;}
+    public String getOrderID(){return orderID;}
     public String getCustomer(){return customer;}
     public String getItem(){return item;}
     public LocalDate getDate(){return date;}

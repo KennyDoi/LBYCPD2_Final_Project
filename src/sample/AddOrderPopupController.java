@@ -76,8 +76,8 @@ public class AddOrderPopupController extends OrderController implements Initiali
                 if (categoryInventory.getSelectionModel().getSelectedItem() == ItemList.get(i).category) {
                     itemName.getItems().add(ItemList.get(i).product);
                 }
+                confirmItemNameButton.setDisable(false);
             }
-            confirmItemNameButton.setDisable(false);
         }
     }
 

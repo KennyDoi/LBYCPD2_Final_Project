@@ -31,9 +31,6 @@ public class OrderController extends Main implements Initializable {
 
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
     String currTime = LocalDate.now().format(dtf);
-    LocalDate test1;
-    LocalDate test2;
-    LocalDate today = LocalDate.parse(currTime);
     LinkedList<Order> reportList = new LinkedList<Order>();
 
     @FXML
