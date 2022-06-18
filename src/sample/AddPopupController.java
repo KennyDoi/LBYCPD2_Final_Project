@@ -34,10 +34,8 @@ public class AddPopupController extends InventoryController implements Initializ
     private ChoiceBox<String> categoryInventory;
     @FXML
     public TableView tableView;
-
     @FXML
     private CheckBox confirmAddNewCategory;
-
     @FXML
     private TextField newTextCategory;
 

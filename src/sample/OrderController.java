@@ -7,10 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.*;
@@ -19,6 +16,7 @@ import javax.swing.*;
 import javax.xml.stream.FactoryConfigurationError;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -27,6 +25,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -35,6 +34,9 @@ public class OrderController extends Main implements Initializable {
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
     String currTime = LocalDate.now().format(dtf);
     LinkedList<Order> reportList = new LinkedList<Order>();
+    public static LocalDate startDate;
+    public static LocalDate endDate;
+    public static Order selectedItem;
 
     @FXML
     private DatePicker startDatePicker;
@@ -46,10 +48,10 @@ public class OrderController extends Main implements Initializable {
     private TableView<Order> orderTable;
 
     @FXML
-    public static Button addOrder;
+    public Button addOrder;
 
     @FXML
-    public static Button removeOrder;
+    public Button removeOrder;
 
     @FXML
     private Button generateReports;
@@ -74,12 +76,46 @@ public class OrderController extends Main implements Initializable {
 
 
     @FXML
+    public void onItemHighlight(MouseEvent event){
+        try{
+            selectedItem = orderTable.getSelectionModel().getSelectedItem();
+        }catch (Error e){
+            e.printStackTrace();
+            System.out.println("Failed item selection");
+        }
+        removeOrder.setDisable(false);
+    }
+
+
+    @FXML
     public void generateReportsFunction(MouseEvent event){
         if (startDatePicker == null) return;
         if (endDatePicker == null) return;
-        LocalDate startDate = startDatePicker.getValue();
-        LocalDate endDate = endDatePicker.getValue();
+        startDate = startDatePicker.getValue();
+        endDate = endDatePicker.getValue();
+        for (int i = 0; i < orderList.size(); i++) {
+            if (startDate.isAfter(orderList.get(i).date) && endDate.isBefore(orderList.get(i).date)){
+                reportList.add(orderList.get(i));
+            }
+        }
+        writeOrder(reportList);
     }
+
+    public static void writeOrder(LinkedList<Order> orderList){
+        try {
+            FileWriter myWriter = new FileWriter("assets/" + startDate + " to " + endDate + " Order Report.csv");
+            myWriter.write("~~~Order Report -> orderID;item;customer;date;quantity;totalPrice\n");
+            for (int i = 0; i < orderList.size(); i++) {
+                myWriter.write(orderList.get(i).orderID + "," + orderList.get(i).item + "," + orderList.get(i).customer + "," + orderList.get(i).date + "," + orderList.get(i).quantity + "," + orderList.get(i).totalPrice + "\n");
+            }
+            myWriter.close();
+            System.out.println("Successfully wrote to the OrderReport csv.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     public void addOrderAction(MouseEvent event){
@@ -114,6 +150,31 @@ public class OrderController extends Main implements Initializable {
 
 
     @FXML
+    void removeOrderAction(MouseEvent event){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Item");
+        alert.setHeaderText("Confirm Delete Order?");
+        alert.setContentText("Delete order " + selectedItem.orderID + " " + selectedItem.item + "?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            for(int i=0; i<orderList.size(); i++){
+                if(orderList.get(i).orderID == selectedItem.orderID){
+                    orderList.remove(i);
+                    orderTable.getItems().clear();
+                    fillTable();
+                    FileIO.writeOrder(orderList);
+                }
+            }
+        }
+        else {
+            alert.close();
+        }
+        removeOrder.setDisable(true);
+    }
+
+
+    @FXML
     void goMenu(MouseEvent event) {
         switchScene(event,"MainMenu", "Menu");
     }
@@ -132,6 +193,7 @@ public class OrderController extends Main implements Initializable {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

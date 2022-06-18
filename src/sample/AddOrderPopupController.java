@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -53,9 +52,6 @@ public class AddOrderPopupController extends OrderController implements Initiali
 
     @FXML
     private TextField customerNameInput;
-
-    @FXML
-    private TextField totalPriceInput;
 
     @FXML
     private TextField quantityInput;
@@ -119,6 +115,14 @@ public class AddOrderPopupController extends OrderController implements Initiali
     }
 
     @FXML
+    public int findfromName(String itemName){
+        for (int i = 0; i < ItemList.size(); i++) {
+            if (itemName == ItemList.get(i).product) return i;
+        }
+        return 0;
+    }
+
+    @FXML
     void confirmAdd(MouseEvent event) {
         boolean error = false;
 
@@ -126,7 +130,6 @@ public class AddOrderPopupController extends OrderController implements Initiali
         String customerName = customerNameInput.getText().trim();
         String nameItem = itemName.getSelectionModel().getSelectedItem();
         String variantItem = itemVariant.getSelectionModel().getSelectedItem();
-        String totalPriceString = totalPriceInput.getText().replace(" ", "").trim();
         String quantityString = quantityInput.getText().replace(" ", "").trim();
         LocalDate date = dateOrdered.getValue();
         String itemFinal = nameItem + ";" + variantItem;
@@ -136,7 +139,6 @@ public class AddOrderPopupController extends OrderController implements Initiali
         if (customerName == null || orderID.length() <= 0) error = true;
         if (nameItem == null || orderID.length() <= 0) error = true;
         if (variantItem == null || orderID.length() <= 0) error = true;
-        if (totalPriceString == null || orderID.length() <= 0) error = true;
         if (quantityString == null || orderID.length() <= 0) error = true;
 
         //convert to int or double
@@ -145,15 +147,15 @@ public class AddOrderPopupController extends OrderController implements Initiali
 
         try {
             quantity = Integer.parseInt(quantityString);
-            totalPrice = Double.parseDouble(totalPriceString);
-        } catch (final NumberFormatException e){return;}
+            totalPrice = quantity*orderList.get(findfromName(nameItem)).totalPrice;
+        } catch (final NumberFormatException e){e.printStackTrace(); return;}
 
         //Error catch
         if (error) {
             return;
         }
 
-        Order order = new Order(orderID, customerName, itemFinal, date, quantity, totalPrice);
+        Order order = new Order(orderID, itemFinal, customerName, date, quantity, totalPrice);
         orderList.add(order);
         FileIO.writeOrder(orderList);
         Stage stage = (Stage) cancelAdd.getScene().getWindow();
