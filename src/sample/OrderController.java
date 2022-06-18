@@ -89,8 +89,37 @@ public class OrderController extends Main implements Initializable {
 
     @FXML
     public void generateReportsFunction(MouseEvent event){
-        if (startDatePicker == null) return;
-        if (endDatePicker == null) return;
+
+        if (startDatePicker == null && endDatePicker == null) return;
+        if (startDatePicker == null && endDatePicker != null) {
+            startDate = LocalDate.now();
+
+            for (int i = 0; i < orderList.size(); i++) {
+                if (startDate.isAfter(orderList.get(i).date)) startDate = orderList.get(i).date;
+            }
+            endDate = endDatePicker.getValue();
+            for (int i = 0; i < orderList.size(); i++) {
+                if (startDate.isAfter(orderList.get(i).date) && endDate.isBefore(orderList.get(i).date)){
+                    reportList.add(orderList.get(i));
+                }
+            }
+            writeOrder(reportList);
+            return;
+        }
+
+        if (startDatePicker != null && endDatePicker == null){
+            startDate = startDatePicker.getValue();
+            endDate = LocalDate.now();
+            for (int i = 0; i < orderList.size(); i++) {
+                if (startDate.isAfter(orderList.get(i).date) && endDate.isBefore(orderList.get(i).date)){
+                    reportList.add(orderList.get(i));
+                }
+            }
+            writeOrder(reportList);
+            return;
+        }
+
+
         startDate = startDatePicker.getValue();
         endDate = endDatePicker.getValue();
         for (int i = 0; i < orderList.size(); i++) {
@@ -99,6 +128,7 @@ public class OrderController extends Main implements Initializable {
             }
         }
         writeOrder(reportList);
+        return;
     }
 
     public static void writeOrder(LinkedList<Order> orderList){
