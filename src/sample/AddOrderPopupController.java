@@ -118,6 +118,7 @@ public class AddOrderPopupController extends OrderController implements Initiali
     public int findfromName(String itemName){
         for (int i = 0; i < ItemList.size(); i++) {
             if (itemName == ItemList.get(i).product) return i;
+            System.out.println(ItemList.get(i).product);
         }
         return 0;
     }
@@ -147,7 +148,8 @@ public class AddOrderPopupController extends OrderController implements Initiali
 
         try {
             quantity = Integer.parseInt(quantityString);
-            totalPrice = quantity*orderList.get(findfromName(nameItem)).totalPrice;
+            System.out.println(orderList.size());
+            totalPrice = quantity*ItemList.get(findfromName(nameItem)).price;
         } catch (final NumberFormatException e){e.printStackTrace(); return;}
 
         //Error catch

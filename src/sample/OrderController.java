@@ -4,29 +4,26 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.*;
 
-import javax.swing.*;
-import javax.xml.stream.FactoryConfigurationError;
-import java.awt.event.ActionEvent;
-import java.io.File;
+import javax.sound.sampled.Line;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class OrderController extends Main implements Initializable {
@@ -89,9 +86,12 @@ public class OrderController extends Main implements Initializable {
 
     @FXML
     public void generateReportsFunction(MouseEvent event){
+        startDate = startDatePicker.getValue();
+        endDate = LocalDate.now();
 
-        if (startDatePicker == null && endDatePicker == null) return;
-        if (startDatePicker == null && endDatePicker != null) {
+
+        if (startDate == null && endDate == null) return;
+        if (startDate == null && endDate != null) {
             startDate = LocalDate.now();
 
             for (int i = 0; i < orderList.size(); i++) {
@@ -99,11 +99,14 @@ public class OrderController extends Main implements Initializable {
             }
             endDate = endDatePicker.getValue();
             for (int i = 0; i < orderList.size(); i++) {
-                if (startDate.isAfter(orderList.get(i).date) && endDate.isBefore(orderList.get(i).date)){
+                if (orderList.get(i).date.isAfter(startDate.minusDays(1)) && orderList.get(i).date.isBefore(endDate.plusDays(1))){
                     reportList.add(orderList.get(i));
+                    System.out.println(orderList.get(i));
                 }
             }
+            System.out.println(startDate + " " + endDate);
             writeOrder(reportList);
+            generateGraph(reportList);
             return;
         }
 
@@ -131,6 +134,40 @@ public class OrderController extends Main implements Initializable {
         return;
     }
 
+    //Graph generation
+    public void generateGraph(LinkedList<Order>reportList) {
+        //removed duplicates array
+        ArrayList<Integer> withoutDuplicates = new ArrayList<Integer>();
+        ArrayList<Integer> withDuplicates = new ArrayList<Integer>();
+
+        //By day
+        for (int i = 0; i < reportList.size(); i++) {
+            withDuplicates.add(reportList.get(i).getDate().getDayOfYear());
+            if (!withoutDuplicates.contains(reportList.get(i).getDate().getDayOfYear())) {
+                withoutDuplicates.add(reportList.get(i).getDate().getDayOfYear());
+            }
+        }
+
+        ArrayList<Integer> instanceArray = createInstanceArray(withoutDuplicates, withDuplicates);
+        XYChart.Series series = new XYChart.Series();
+        NumberAxis xAxis = new NumberAxis(returnLowest(withoutDuplicates)-5, returnHighest(withoutDuplicates)+5, withoutDuplicates.size());
+        NumberAxis yAxis = new NumberAxis(returnLowest(instanceArray)-5, returnHighest(instanceArray)+5, instanceArray.size());
+        LineChart lineChart = new LineChart(xAxis, yAxis);
+        for (int i = 0; i < withoutDuplicates.size(); i++) {
+            series.getData().add(new XYChart.Data(withoutDuplicates.get(i), returnInstances(withoutDuplicates.get(i), withDuplicates)));
+
+        }
+
+        xAxis.setLabel("Date");
+        yAxis.setLabel("Sales");
+        lineChart.getData().add(series);
+        Group root = new Group(lineChart);
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public static void writeOrder(LinkedList<Order> orderList){
         try {
             FileWriter myWriter = new FileWriter("assets/" + startDate + " to " + endDate + " Order Report.csv");
@@ -146,6 +183,49 @@ public class OrderController extends Main implements Initializable {
         }
     }
 
+    public int returnLowest(ArrayList<Integer> input){
+        int j = 999999;
+        for (int i = 0; i < input.size(); i++) {
+            if (input.get(i) < j){
+                j = input.get(i);
+            }
+        }
+        return j;
+    }
+
+    public int returnHighest(ArrayList<Integer> input){
+        int j = -99999;
+        for (int i = 0; i < input.size(); i++) {
+            if (input.get(i) > j){
+                j = input.get(i);
+            }
+        }
+        return j;
+    }
+
+    public int returnInstances(int target, ArrayList<Integer> input){
+        int counter = 0;
+        for (int i = 0; i < input.size(); i++) {
+            if (target == input.get(i)){
+                counter+=1;
+            }
+        }
+        return counter;
+    }
+
+    public ArrayList<Integer> createInstanceArray (ArrayList<Integer> woD, ArrayList<Integer> D){
+        ArrayList<Integer> output = new ArrayList<>();
+        int counter;
+        System.out.println(woD + "/n" + D);
+        for (int i = 0; i < woD.size(); i++) {
+            counter = 0;
+            for (int j = 0; j < D.size(); j++) {
+                if (woD.get(i).equals(D.get(j))){ counter+=1;}
+            }
+            output.add(counter);
+        }
+        return output;
+    }
 
     @FXML
     public void addOrderAction(MouseEvent event){
@@ -231,6 +311,7 @@ public class OrderController extends Main implements Initializable {
         for (int i = 0; i < orderList.size(); i++) {
             orderTable.getItems().add(orderList.get(i));
         }
+
         endDatePicker.setValue(now);
         idColumn.setCellValueFactory(new PropertyValueFactory<>("orderID"));
         itemColumn.setCellValueFactory(new PropertyValueFactory<>("item"));
