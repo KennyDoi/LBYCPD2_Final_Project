@@ -19,7 +19,6 @@ import java.util.ResourceBundle;
 
 public class AddOrderPopupController extends OrderController implements Initializable{
 
-
     @FXML
     private Button cancelAdd;
 
@@ -69,11 +68,13 @@ public class AddOrderPopupController extends OrderController implements Initiali
             itemVariant.setDisable(true);
 
             for (int i = 0; i < ItemList.size(); i++) {
-                if (categoryInventory.getSelectionModel().getSelectedItem() == ItemList.get(i).category) {
-                    itemName.getItems().add(ItemList.get(i).product);
+                if (categoryInventory.getSelectionModel().getSelectedItem().equals(ItemList.get(i).category)) {
+                    if(!itemName.getItems().contains(ItemList.get(i).product)) {
+                        itemName.getItems().add(ItemList.get(i).product);
+                    }
                 }
-                confirmItemNameButton.setDisable(false);
             }
+            confirmItemNameButton.setDisable(false);
         }
     }
 
@@ -88,8 +89,10 @@ public class AddOrderPopupController extends OrderController implements Initiali
             itemVariant.setDisable(false);
 
             for (int i = 0; i < ItemList.size(); i++) {
-                if (itemName.getSelectionModel().getSelectedItem() == ItemList.get(i).product) {
-                    itemVariant.getItems().add(ItemList.get(i).variant);
+                if (itemName.getSelectionModel().getSelectedItem().equals(ItemList.get(i).product)) {
+                    if(!itemVariant.getItems().contains(ItemList.get(i).product)) {
+                        itemVariant.getItems().add(ItemList.get(i).variant);
+                    }
                 }
             }
         }
