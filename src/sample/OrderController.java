@@ -87,7 +87,8 @@ public class OrderController extends Main implements Initializable {
     @FXML
     public void generateReportsFunction(MouseEvent event){
         startDate = startDatePicker.getValue();
-        endDate = LocalDate.now();
+        endDate = endDatePicker.getValue();
+        reportList = new LinkedList<Order>();
 
 
         if (startDate == null && endDate == null) return;
@@ -110,15 +111,16 @@ public class OrderController extends Main implements Initializable {
             return;
         }
 
-        if (startDatePicker != null && endDatePicker == null){
+        if (startDate != null && endDate == null){
             startDate = startDatePicker.getValue();
             endDate = LocalDate.now();
             for (int i = 0; i < orderList.size(); i++) {
-                if (startDate.isAfter(orderList.get(i).date) && endDate.isBefore(orderList.get(i).date)){
+                if (startDate.minusDays(1).isBefore(orderList.get(i).date) && endDate.plusDays(1).isAfter(orderList.get(i).date)){
                     reportList.add(orderList.get(i));
                 }
             }
             writeOrder(reportList);
+            generateGraph(reportList);
             return;
         }
 
@@ -126,11 +128,12 @@ public class OrderController extends Main implements Initializable {
         startDate = startDatePicker.getValue();
         endDate = endDatePicker.getValue();
         for (int i = 0; i < orderList.size(); i++) {
-            if (startDate.isAfter(orderList.get(i).date) && endDate.isBefore(orderList.get(i).date)){
+            if (startDate.minusDays(1).isBefore(orderList.get(i).date) && endDate.plusDays(1).isAfter(orderList.get(i).date)){
                 reportList.add(orderList.get(i));
             }
         }
         writeOrder(reportList);
+        generateGraph(reportList);
         return;
     }
 
@@ -158,7 +161,7 @@ public class OrderController extends Main implements Initializable {
 
         }
 
-        xAxis.setLabel("Date");
+        xAxis.setLabel("Day of Year");
         yAxis.setLabel("Sales");
         lineChart.getData().add(series);
         Group root = new Group(lineChart);
