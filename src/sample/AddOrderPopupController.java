@@ -2,20 +2,16 @@ package sample;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AddOrderPopupController extends OrderController implements Initializable{
 
@@ -53,12 +49,20 @@ public class AddOrderPopupController extends OrderController implements Initiali
     private TextField customerNameInput;
 
     @FXML
-    private TextField quantityInput;
+    private Spinner<Integer> quantitySpinner;
+
+    @FXML
+    private Text currentStockText;
+
+    @FXML
+    private Button confirmItemVariationButton;
 
     @FXML
     void confirmCategory(MouseEvent event) {
         itemName.getItems().clear();
         itemVariant.getItems().clear();
+        currentStockText.setText("");
+        quantitySpinner.setDisable(true);
         if (categoryInventory.getSelectionModel().isEmpty()){
             itemName.setDisable(true);
             itemVariant.setDisable(true);
@@ -75,24 +79,46 @@ public class AddOrderPopupController extends OrderController implements Initiali
                 }
             }
             confirmItemNameButton.setDisable(false);
+            confirmItemVariationButton.setDisable(true);
         }
     }
 
     @FXML
     void confirmItemName(MouseEvent event){
+        currentStockText.setText("");
+        quantitySpinner.setDisable(true);
         itemVariant.getItems().clear();
         if (itemName.getSelectionModel().isEmpty()) {
             itemVariant.setDisable(true);
         }
         else{
-            System.out.println("Test");
             itemVariant.setDisable(false);
+            confirmItemVariationButton.setDisable(false);
 
             for (int i = 0; i < ItemList.size(); i++) {
                 if (itemName.getSelectionModel().getSelectedItem().equals(ItemList.get(i).product)) {
                     if(!itemVariant.getItems().contains(ItemList.get(i).product)) {
                         itemVariant.getItems().add(ItemList.get(i).variant);
                     }
+                }
+            }
+        }
+    }
+
+    @FXML
+    void confirmItemVariation(){
+        if (itemVariant.getSelectionModel().isEmpty()) {
+            quantitySpinner.setDisable(true);
+        }
+        else{
+            for (int i = 0; i < ItemList.size(); i++) {
+                if(itemName.getSelectionModel().getSelectedItem().equals(ItemList.get(i).product) && itemVariant.getSelectionModel().getSelectedItem().equals(ItemList.get(i).variant)){
+                    quantitySpinner.setDisable(false);
+                    currentStockText.setText("Current Stock: " + ItemList.get(i).stock);
+
+                    SpinnerValueFactory<Integer> quantityFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, ItemList.get(i).stock, 1);
+                    quantitySpinner.setValueFactory(quantityFactory);
+                    break;
                 }
             }
         }
@@ -121,7 +147,6 @@ public class AddOrderPopupController extends OrderController implements Initiali
     public int findfromName(String itemName){
         for (int i = 0; i < ItemList.size(); i++) {
             if (itemName == ItemList.get(i).product) return i;
-            System.out.println(ItemList.get(i).product);
         }
         return 0;
     }
@@ -134,35 +159,65 @@ public class AddOrderPopupController extends OrderController implements Initiali
         String customerName = customerNameInput.getText().trim();
         String nameItem = itemName.getSelectionModel().getSelectedItem();
         String variantItem = itemVariant.getSelectionModel().getSelectedItem();
-        String quantityString = quantityInput.getText().replace(" ", "").trim();
         LocalDate date = dateOrdered.getValue();
         String itemFinal = nameItem + ";" + variantItem;
 
         //TextField and choiceBox error catching
+        if (quantitySpinner.getValue() == null) error = true;
         if (orderID == null || orderID.length() <= 0) error = true;
         if (customerName == null || orderID.length() <= 0) error = true;
         if (nameItem == null || orderID.length() <= 0) error = true;
         if (variantItem == null || orderID.length() <= 0) error = true;
-        if (quantityString == null || orderID.length() <= 0) error = true;
-
-        //convert to int or double
-        int quantity;
-        double totalPrice;
-
-        try {
-            quantity = Integer.parseInt(quantityString);
-            System.out.println(orderList.size());
-            totalPrice = quantity*ItemList.get(findfromName(nameItem)).price;
-        } catch (final NumberFormatException e){e.printStackTrace(); return;}
 
         //Error catch
         if (error) {
+            Alert alertError = new Alert(Alert.AlertType.INFORMATION);
+            alertError.setTitle("Warning!");
+            alertError.setHeaderText("Cannot add order because one of the inputs is empty!");
+            Optional<ButtonType> result = alertError.showAndWait();
+            if(result.get() == ButtonType.OK){
+                return;
+            }
             return;
         }
 
+        if(orderID.contains(",") || customerName.contains(",")){
+            Alert alertError = new Alert(Alert.AlertType.INFORMATION);
+            alertError.setTitle("Warning!");
+            alertError.setHeaderText("Cannot input \",\" in any text");
+            Optional<ButtonType> result = alertError.showAndWait();
+            if(result.get() == ButtonType.OK){
+                return;
+            }
+            return;
+        }
+
+        int quantity = quantitySpinner.getValue();
+
+        //Error catch quantity is 0
+        if (quantity == 0) {
+            Alert alertError = new Alert(Alert.AlertType.INFORMATION);
+            alertError.setTitle("Warning!");
+            alertError.setHeaderText("Cannot add order because quantity is 0");
+            Optional<ButtonType> result = alertError.showAndWait();
+            if(result.get() == ButtonType.OK){
+                return;
+            }
+            return;
+        }
+
+        double totalPrice;
+        totalPrice = quantity*ItemList.get(findfromName(nameItem)).price;
+
         Order order = new Order(orderID, itemFinal, customerName, date, quantity, totalPrice);
         orderList.add(order);
+        for (int i = 0; i < ItemList.size(); i++) {
+            if(nameItem.equals(ItemList.get(i).product) && variantItem.equals(ItemList.get(i).variant)){
+                ItemList.get(i).stock -= quantity;
+            }
+        }
         FileIO.writeOrder(orderList);
+        FileIO.writeItemFiles(ItemList);
         Stage stage = (Stage) cancelAdd.getScene().getWindow();
         stage.hide();
     }

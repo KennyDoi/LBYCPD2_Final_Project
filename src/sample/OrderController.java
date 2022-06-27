@@ -103,7 +103,6 @@ public class OrderController extends Main implements Initializable {
             for (int i = 0; i < orderList.size(); i++) {
                 if (orderList.get(i).date.isAfter(startDate.minusDays(1)) && orderList.get(i).date.isBefore(endDate.plusDays(1))){
                     reportList.add(orderList.get(i));
-                    System.out.println(orderList.get(i));
                 }
             }
             System.out.println(startDate + " " + endDate);
@@ -266,19 +265,59 @@ public class OrderController extends Main implements Initializable {
 
     @FXML
     void removeOrderAction(MouseEvent event){
+        String[] item = selectedItem.item.split(";");
+        boolean addStock = false;
+        boolean found = false;
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Item");
-        alert.setHeaderText("Confirm Delete Order?");
-        alert.setContentText("Delete order " + selectedItem.orderID + " " + selectedItem.item + "?");
+        alert.setHeaderText("Confirm Delete Order? Stocks of the item will be added upon deletion");
+        alert.setContentText("Delete order #" + selectedItem.orderID + " " + item[0] + item[1] + "?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            for(int i=0; i<orderList.size(); i++){
-                if(orderList.get(i).orderID == selectedItem.orderID){
-                    orderList.remove(i);
-                    orderTable.getItems().clear();
-                    fillTable();
-                    FileIO.writeOrder(orderList);
+            //Checks if order item is in ItemList. If it is, then subtract stock.
+            for (int i = 0; i < ItemList.size(); i++) {
+                if (item[0].equals(ItemList.get(i).product) && item[1].equals(ItemList.get(i).variant)){
+                    found = true;
+                    ItemList.get(i).stock += selectedItem.quantity;
+                    FileIO.writeItemFiles(ItemList);
+                    break;
+                }
+            }
+
+            if(found){
+                for(int i=0; i<orderList.size(); i++){
+                    if(orderList.get(i).orderID == selectedItem.orderID){
+                        orderList.remove(i);
+                        orderTable.getItems().clear();
+                        fillTable();
+                        FileIO.writeOrder(orderList);
+                        break;
+                    }
+                }
+            }
+            else{
+                alert.close();
+                Alert alertAddStock = new Alert(Alert.AlertType.CONFIRMATION);
+                alertAddStock.setTitle("Item cannot be found");
+                alertAddStock.setHeaderText("Cannot update stocks because item cannot be found. Delete order anyway?");
+                alertAddStock.setContentText("Delete order #" + selectedItem.orderID + " " + item[0] + item[1] + "?");
+                Optional<ButtonType> result2 = alertAddStock.showAndWait();
+
+                if (result2.get() == ButtonType.OK){
+                    for(int i=0; i<orderList.size(); i++){
+                        if(orderList.get(i).orderID == selectedItem.orderID){
+                            orderList.remove(i);
+                            orderTable.getItems().clear();
+                            fillTable();
+                            FileIO.writeOrder(orderList);
+                            break;
+                        }
+                    }
+                }
+
+                else{
+                    alertAddStock.close();
                 }
             }
         }

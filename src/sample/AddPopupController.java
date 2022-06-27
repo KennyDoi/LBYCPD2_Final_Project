@@ -12,10 +12,7 @@ import javax.naming.ldap.InitialLdapContext;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class AddPopupController extends InventoryController implements Initializable {
@@ -80,7 +77,16 @@ public class AddPopupController extends InventoryController implements Initializ
         try {
             price = Double.parseDouble(ph2);
             stock = Integer.parseInt(ph3);
-        } catch (final NumberFormatException e){return;}
+        } catch (final NumberFormatException e){
+            Alert alertError = new Alert(Alert.AlertType.INFORMATION);
+            alertError.setTitle("Warning!");
+            alertError.setHeaderText("Please input numbers only for price and stocks!");
+            Optional<ButtonType> result = alertError.showAndWait();
+            if(result.get() == ButtonType.OK){
+                return;
+            }
+            return;
+        }
 
         //Get highest integer from current list of items
         for (int i = 0; i < ItemList.size(); i++) {
@@ -92,6 +98,24 @@ public class AddPopupController extends InventoryController implements Initializ
 
         //Error catch
         if (error) {
+            Alert alertError = new Alert(Alert.AlertType.INFORMATION);
+            alertError.setTitle("Warning!");
+            alertError.setHeaderText("Cannot add item because one of the inputs is empty!");
+            Optional<ButtonType> result = alertError.showAndWait();
+            if(result.get() == ButtonType.OK){
+                return;
+            }
+            return;
+        }
+
+        if(name.contains(",") || variant.contains(",") || category.contains(",")){
+            Alert alertError = new Alert(Alert.AlertType.INFORMATION);
+            alertError.setTitle("Warning!");
+            alertError.setHeaderText("Cannot input \",\" in any text");
+            Optional<ButtonType> result = alertError.showAndWait();
+            if(result.get() == ButtonType.OK){
+                return;
+            }
             return;
         }
 
