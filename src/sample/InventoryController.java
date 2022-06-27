@@ -28,7 +28,6 @@ public class InventoryController extends Main implements Initializable{
     public int selectedID;
     public static Item selectedItem;
     public int index;
-    public static ArrayList<String> categories;
 
     @FXML
     public ListView<String> listInventory;
@@ -271,19 +270,6 @@ public class InventoryController extends Main implements Initializable{
 
     }
 
-    public static ArrayList<String> removeDuplicates(LinkedList<Item> ItemLists, int n) {
-        ArrayList<String> categories = new ArrayList<String>();
-        HashMap<String, Boolean> mp = new HashMap<>();
-
-        for (int i = 0; i < n; ++i) {
-            if (mp.get(ItemLists.get(i).category) == null){
-                categories.add(ItemLists.get(i).category);
-                mp.put(ItemLists.get(i).category, true);
-            }
-        }
-        return categories;
-    }
-
     @FXML
     void addItem(MouseEvent event) {
         try {
@@ -396,10 +382,11 @@ public class InventoryController extends Main implements Initializable{
     void refreshCategories(){
         FileIO.readItemFiles();
         categoryInventory.getItems().clear();
-        categories = removeDuplicates(ItemList, ItemList.size());
         categoryInventory.getItems().add("ALL");
-        for (int i = 0; i < categories.size(); i++) {
-            categoryInventory.getItems().add(categories.get(i));
+        for (int i = 0; i < ItemList.size(); i++) {
+            if(!categoryInventory.getItems().contains(ItemList.get(i).category)) {
+                categoryInventory.getItems().add(ItemList.get(i).category);
+            }
         }
     }
 

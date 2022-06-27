@@ -25,6 +25,11 @@ import java.util.ResourceBundle;
 public class Controller extends Main implements Initializable {
 
     @FXML
+    void exit(MouseEvent event){
+        System.exit(0);
+    }
+
+    @FXML
     void OrderManagement(MouseEvent event) {
         switchScene(event,"OrderManagementMenu", "Order Management Menu");
     }

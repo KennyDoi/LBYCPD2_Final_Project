@@ -80,6 +80,7 @@ public class OrderController extends Main implements Initializable {
             e.printStackTrace();
             System.out.println("Failed item selection");
         }
+        if (selectedItem==null) return;
         removeOrder.setDisable(false);
     }
 
@@ -245,6 +246,7 @@ public class OrderController extends Main implements Initializable {
             stage.setOnHiding(new EventHandler<WindowEvent>() {
                 public void handle(WindowEvent we) {
                     fillTable();
+                    removeOrder.setDisable(true);
                 }
             });
         } catch (IOException e) {

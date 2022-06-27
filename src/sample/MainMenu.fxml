@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" prefHeight="768.0" prefWidth="1024.0" vgap="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="center" hgap="10" prefHeight="768.0" prefWidth="1024.0" vgap="10" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -22,19 +22,24 @@
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#515151" height="768.0" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcf3a9" height="736.0" layoutX="24.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" width="976.0" />
-            <ImageView fx:id="logo" fitHeight="173.0" fitWidth="302.0" layoutX="38.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="logo" fitHeight="173.0" fitWidth="302.0" layoutX="40.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../21CartsLogo.jpeg" />
                </image>
             </ImageView>
-            <Button layoutX="312.0" layoutY="309.0" mnemonicParsing="false" onMouseClicked="#OrderManagement" prefHeight="17.0" prefWidth="373.0" text="Order Management">
+            <Button layoutX="264.0" layoutY="243.0" mnemonicParsing="false" onMouseClicked="#OrderManagement" prefHeight="84.0" prefWidth="496.0" text="Order Management">
                <font>
-                  <Font size="23.0" />
+                  <Font size="34.0" />
                </font>
             </Button>
-            <Button layoutX="312.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#InventoryManagement" prefHeight="17.0" prefWidth="373.0" text="Inventory Management">
+            <Button layoutX="264.0" layoutY="366.0" mnemonicParsing="false" onMouseClicked="#InventoryManagement" prefHeight="84.0" prefWidth="496.0" text="Inventory Management">
                <font>
-                  <Font size="23.0" />
+                  <Font size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="exitButton" layoutX="264.0" layoutY="491.0" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="52.0" prefWidth="496.0" text="EXIT">
+               <font>
+                  <Font size="40.0" />
                </font>
             </Button>
          </children>

@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,12 +22,6 @@ public class Main extends Application {
         primaryStage.show();
         ItemList = FileIO.readItemFiles();
         orderList = FileIO.readOrder();
-//        System.out.println(orderList.get(0).orderID);
-////        System.out.println(orderList.get(0).item);
-////        System.out.println(orderList.get(0).customer);
-////        System.out.println(orderList.get(0).totalPrice);
-////        System.out.println(orderList.get(0).quantity);
-////        System.out.println(orderList.get(0).date.toString());
     }
 
     public LinkedList<Item> getItemList(){
