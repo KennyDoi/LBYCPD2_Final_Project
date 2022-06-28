@@ -42,6 +42,9 @@ public class OrderController extends Main implements Initializable {
     private DatePicker endDatePicker;
 
     @FXML
+    private ChoiceBox dateSorter;
+
+    @FXML
     private TableView<Order> orderTable;
 
     @FXML
@@ -144,31 +147,92 @@ public class OrderController extends Main implements Initializable {
         ArrayList<Integer> withDuplicates = new ArrayList<Integer>();
 
         //By day
-        for (int i = 0; i < reportList.size(); i++) {
-            withDuplicates.add(reportList.get(i).getDate().getDayOfYear());
-            if (!withoutDuplicates.contains(reportList.get(i).getDate().getDayOfYear())) {
-                withoutDuplicates.add(reportList.get(i).getDate().getDayOfYear());
+        if (dateSorter.getValue().equals("By day of year")) {
+            for (int i = 0; i < reportList.size(); i++) {
+                withDuplicates.add(reportList.get(i).getDate().getDayOfYear());
+                if (!withoutDuplicates.contains(reportList.get(i).getDate().getDayOfYear())) {
+                    withoutDuplicates.add(reportList.get(i).getDate().getDayOfYear());
+                }
             }
         }
 
-        ArrayList<Integer> instanceArray = createInstanceArray(withoutDuplicates, withDuplicates);
-        XYChart.Series series = new XYChart.Series();
-        NumberAxis xAxis = new NumberAxis(returnLowest(withoutDuplicates)-5, returnHighest(withoutDuplicates)+5, withoutDuplicates.size());
-        NumberAxis yAxis = new NumberAxis(returnLowest(instanceArray)-5, returnHighest(instanceArray)+5, instanceArray.size());
-        LineChart lineChart = new LineChart(xAxis, yAxis);
-        for (int i = 0; i < withoutDuplicates.size(); i++) {
-            series.getData().add(new XYChart.Data(withoutDuplicates.get(i), returnInstances(withoutDuplicates.get(i), withDuplicates)));
+        //By month
+        if (dateSorter.getValue().equals("By month")) {
+            for (int i = 0; i < reportList.size(); i++) {
+                withDuplicates.add(reportList.get(i).getDate().getMonthValue()%12);
+                if (!withoutDuplicates.contains(reportList.get(i).getDate().getMonthValue()%12)) {
+                    withoutDuplicates.add(reportList.get(i).getDate().getMonthValue()%12);
+                }
+            }
+        }
+
+        //By year
+        if (dateSorter.getValue().equals("By year")) {
+            for (int i = 0; i < reportList.size(); i++) {
+                withDuplicates.add(reportList.get(i).getDate().getYear());
+                if (!withoutDuplicates.contains(reportList.get(i).getDate().getYear())) {
+                    withoutDuplicates.add(reportList.get(i).getDate().getYear());
+                }
+            }
+
 
         }
 
-        xAxis.setLabel("Day of Year");
-        yAxis.setLabel("Sales");
-        lineChart.getData().add(series);
-        Group root = new Group(lineChart);
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
+        //Create array of repetitions inside withDuplicates
+        ArrayList<Integer> instanceArray = createInstanceArray(withoutDuplicates, withDuplicates);
+        XYChart.Series series = new XYChart.Series();
+
+        // +- 5 To add space for graph
+        if (dateSorter.getValue().equals("By day of year")) {
+            NumberAxis xAxis = new NumberAxis(returnLowest(withoutDuplicates) - 5, returnHighest(withoutDuplicates) + 5, withoutDuplicates.size());
+            NumberAxis yAxis = new NumberAxis(returnLowest(instanceArray) - 5, returnHighest(instanceArray) + 5, withoutDuplicates.size());
+            LineChart lineChart = new LineChart(xAxis, yAxis);
+            xAxis.setLabel("Day of Year");
+            yAxis.setLabel("Sales");
+            lineChart.getData().add(series);
+            Group root = new Group(lineChart);
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Sales Graph");
+            stage.show();
+        }
+
+        if (dateSorter.getValue().equals("By month")) {
+            NumberAxis xAxis = new NumberAxis(returnLowest(withoutDuplicates) - 2, returnHighest(withoutDuplicates) + 2, withoutDuplicates.size());
+            NumberAxis yAxis = new NumberAxis(returnLowest(instanceArray) - 2, returnHighest(instanceArray) + 2, withoutDuplicates.size());
+            LineChart lineChart = new LineChart(xAxis, yAxis);
+            xAxis.setLabel("Month");
+            yAxis.setLabel("Sales");
+            lineChart.getData().add(series);
+            Group root = new Group(lineChart);
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Sales Graph");
+            stage.show();
+        }
+
+        if (dateSorter.getValue().equals("By year")) {
+            NumberAxis xAxis = new NumberAxis(returnLowest(withoutDuplicates) - 2, returnHighest(withoutDuplicates) + 2, withoutDuplicates.size());
+            NumberAxis yAxis = new NumberAxis(returnLowest(instanceArray) - 2, returnHighest(instanceArray) + 2, withoutDuplicates.size());
+            LineChart lineChart = new LineChart(xAxis, yAxis);
+            xAxis.setLabel("Year");
+            yAxis.setLabel("Sales");
+            lineChart.getData().add(series);
+            Group root = new Group(lineChart);
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Sales Graph");
+            stage.show();
+        }
+
+        //Each item in withoutDuplicates is data point on graph. Array withDuplicates is for tracking repetitions of withoutDuplicates.
+        for (int i = 0; i < withoutDuplicates.size(); i++) {
+            series.getData().add(new XYChart.Data(withoutDuplicates.get(i), returnInstances(withoutDuplicates.get(i), withDuplicates)));
+        }
+
     }
 
     public static void writeOrder(LinkedList<Order> orderList){
@@ -261,7 +325,6 @@ public class OrderController extends Main implements Initializable {
             orderTable.getItems().add(orderList.get(i));
         }
     }
-
 
     @FXML
     void removeOrderAction(MouseEvent event){
@@ -356,6 +419,11 @@ public class OrderController extends Main implements Initializable {
             orderTable.getItems().add(orderList.get(i));
         }
 
+
+        dateSorter.getItems().add("By day of year");
+        dateSorter.getItems().add("By month");
+        dateSorter.getItems().add("By year");
+        dateSorter.setValue("By day of year");
         endDatePicker.setValue(now);
         idColumn.setCellValueFactory(new PropertyValueFactory<>("orderID"));
         itemColumn.setCellValueFactory(new PropertyValueFactory<>("item"));
