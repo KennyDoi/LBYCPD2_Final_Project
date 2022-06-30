@@ -193,7 +193,7 @@ public class InventoryController extends Main implements Initializable{
         ItemList.get(index).stock += addStockSpinner.getValue();
         tableView.getItems().clear();
         String category = categoryInventory.getSelectionModel().getSelectedItem();
-        if(category.equals("ALL")) {
+        if(category == "ALL") {
             for (int i = 0; i < ItemList.size(); i++) {
                 tableView.getItems().add(ItemList.get(i));
             }
