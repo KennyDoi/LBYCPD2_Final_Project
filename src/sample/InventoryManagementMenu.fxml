@@ -27,97 +27,97 @@
       <AnchorPane prefHeight="708.0" prefWidth="1017.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#515151" height="768.0" stroke="BLACK" strokeType="INSIDE" width="1024.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcf3a9" height="736.0" layoutX="24.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" width="976.0" />
-            <ImageView fx:id="logo" fitHeight="171.0" fitWidth="178.0" layoutX="798.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fddf7f" height="736.0" layoutX="24.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" width="976.0" />
+            <ImageView fx:id="logo" fitHeight="171.0" fitWidth="178.0" layoutX="805.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../21CartsLogo.jpeg" />
                </image>
             </ImageView>
-            <Button layoutX="50.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#goMenu" prefHeight="47.0" prefWidth="53.0" text="&lt;">
+            <ImageView fitHeight="77.0" fitWidth="193.0" layoutX="796.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../21CartsButtonFrame2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="77.0" fitWidth="193.0" layoutX="796.0" layoutY="312.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../21CartsButtonFrame2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="77.0" fitWidth="193.0" layoutX="796.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../21CartsButtonFrame2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="253.0" fitWidth="189.0" layoutX="796.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../21CartsButtonFrame3.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="703.0" layoutX="40.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../21CartsButtonFrame4.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="40.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#goMenu" prefHeight="28.0" prefWidth="43.0" text="&lt;" textFill="#4b4b4b">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Raleway Bold" size="20.0" />
                </font>
             </Button>
-            <Text layoutX="326.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inventory Management" wrappingWidth="348.607421875">
+            <Text fill="#4b4b4b" layoutX="177.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INVENTORY MANAGEMENT" textAlignment="CENTER" underline="true" wrappingWidth="618.4741516113281">
                <font>
-                  <Font size="32.0" />
+                  <Font name="Raleway Bold" size="39.0" />
                </font>
             </Text>
-            <ChoiceBox fx:id="categoryInventory" layoutX="195.0" layoutY="103.0" prefHeight="36.0" prefWidth="480.0" />
-            <Button fx:id="addItemButton" layoutX="805.0" layoutY="240.0" mnemonicParsing="false" onMouseClicked="#addItem" prefHeight="51.0" prefWidth="164.0" text="Add">
+            <ChoiceBox fx:id="categoryInventory" layoutX="204.0" layoutY="94.0" prefHeight="36.0" prefWidth="488.0" />
+            <Button fx:id="addItemButton" layoutX="805.0" layoutY="240.0" mnemonicParsing="false" onMouseClicked="#addItem" prefHeight="51.0" prefWidth="164.0" text="Add" textFill="#4b4b4b">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Raleway Bold" size="24.0" />
                </font>
             </Button>
-            <Button fx:id="editItemButton" disable="true" layoutX="805.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#editItem" prefHeight="51.0" prefWidth="164.0" text="Edit Details">
+            <Button fx:id="editItemButton" disable="true" layoutX="805.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#editItem" prefHeight="51.0" prefWidth="164.0" text="Edit Details" textFill="#4b4b4b">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Raleway Bold" size="24.0" />
                </font>
             </Button>
-            <Button fx:id="deleteItemButton" disable="true" layoutX="805.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#deleteItem" prefHeight="51.0" prefWidth="164.0" text="Delete">
+            <Button fx:id="deleteItemButton" disable="true" layoutX="805.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#deleteItem" prefHeight="51.0" prefWidth="164.0" text="Delete" textFill="#4b4b4b">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Raleway Bold" size="24.0" />
                </font>
             </Button>
-            <Text layoutX="103.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Name" textAlignment="CENTER" wrappingWidth="195.2724609375">
+            <Button fx:id="getCategory" layoutX="698.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#getCategory" prefHeight="30.0" prefWidth="30.0" text="✓" />
+            <Text disable="true" fill="#4b4b4b" layoutX="789.0" layoutY="517.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Stocks" textAlignment="CENTER" wrappingWidth="195.2724609375">
                <font>
-                  <Font size="22.0" />
+                  <Font name="Raleway Bold" size="24.0" />
                </font>
             </Text>
-            <Text layoutX="365.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Variant" textAlignment="CENTER" wrappingWidth="195.2724609375">
+            <Spinner fx:id="addStockSpinner" disable="true" layoutX="849.0" layoutY="573.0" prefHeight="36.0" prefWidth="82.0" />
+            <Spinner fx:id="subStockSpinner" disable="true" layoutX="849.0" layoutY="675.0" prefHeight="36.0" prefWidth="82.0" />
+            <CheckBox fx:id="addCheck" disable="true" layoutX="825.0" layoutY="535.0" mnemonicParsing="false" onMousePressed="#addStock" prefHeight="37.0" prefWidth="82.0" text="Add" textFill="#4b4b4b">
                <font>
-                  <Font size="22.0" />
-               </font>
-            </Text>
-            <Text layoutX="596.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" textAlignment="CENTER" wrappingWidth="62.2724609375">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Text>
-            <Text layoutX="706.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stock" textAlignment="CENTER" wrappingWidth="62.2724609375">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Text>
-            <Button fx:id="getCategory" layoutX="684.0" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#getCategory" prefHeight="29.0" prefWidth="44.0" text="✓" />
-            <Text layoutX="38.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" textAlignment="CENTER" wrappingWidth="53.0">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Text>
-            <Text disable="true" layoutX="789.0" layoutY="517.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Stocks" textAlignment="CENTER" wrappingWidth="195.2724609375">
-               <font>
-                  <Font size="28.0" />
-               </font>
-            </Text>
-            <Spinner fx:id="addStockSpinner" disable="true" layoutX="866.0" layoutY="572.0" prefHeight="36.0" prefWidth="82.0" />
-            <Spinner fx:id="subStockSpinner" disable="true" layoutX="866.0" layoutY="674.0" prefHeight="36.0" prefWidth="82.0" />
-            <CheckBox fx:id="addCheck" disable="true" layoutX="825.0" layoutY="535.0" mnemonicParsing="false" onMousePressed="#addStock" prefHeight="37.0" prefWidth="82.0" text="Add">
-               <font>
-                  <Font size="20.0" />
+                  <Font name="Raleway" size="20.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="subtractCheck" disable="true" layoutX="826.0" layoutY="637.0" mnemonicParsing="false" onMouseClicked="#SubStock" prefHeight="37.0" prefWidth="121.0" text="Subtract">
+            <CheckBox fx:id="subtractCheck" disable="true" layoutX="826.0" layoutY="637.0" mnemonicParsing="false" onMouseClicked="#SubStock" prefHeight="37.0" prefWidth="121.0" text="Subtract" textFill="#4b4b4b">
                <font>
-                  <Font size="20.0" />
+                  <Font name="Raleway" size="20.0" />
                </font>
             </CheckBox>
-            <Button fx:id="addConfirmStock" layoutX="954.0" layoutY="576.0" mnemonicParsing="false" onMouseClicked="#confirmAdd" prefHeight="29.0" prefWidth="24.0" text="✓" visible="false">
+            <Button fx:id="addConfirmStock" layoutX="934.0" layoutY="576.0" mnemonicParsing="false" onMouseClicked="#confirmAdd" prefHeight="30.0" prefWidth="24.0" text="✓" visible="false">
                <font>
                   <Font size="10.0" />
                </font>
             </Button>
-            <Button fx:id="subConfirmStock" layoutX="954.0" layoutY="678.0" mnemonicParsing="false" onMouseClicked="#confirmSub" prefHeight="29.0" prefWidth="24.0" text="✓" visible="false">
+            <Button fx:id="subConfirmStock" layoutX="934.0" layoutY="678.0" mnemonicParsing="false" onMouseClicked="#confirmSub" prefHeight="30.0" prefWidth="24.0" text="✓" visible="false">
                <font>
                   <Font size="10.0" />
                </font>
             </Button>
-            <Text layoutX="44.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Category" textAlignment="CENTER" wrappingWidth="145.0">
+            <Text fill="#4b4b4b" layoutX="54.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Category:" textAlignment="CENTER" wrappingWidth="145.0">
                <font>
-                  <Font size="18.0" />
+                  <Font name="Raleway Bold" size="17.0" />
                </font>
             </Text>
-            <TableView fx:id="tableView" layoutX="50.0" layoutY="151.0" onMouseClicked="#categoryClicked" prefHeight="569.0" prefWidth="730.0">
+            <TableView fx:id="tableView" layoutX="44.0" layoutY="151.0" onMouseClicked="#categoryClicked" prefHeight="578.0" prefWidth="742.0">
               <columns>
                 <TableColumn fx:id="idColumn" editable="false" prefWidth="67.0" text="ID" />
                 <TableColumn fx:id="prodColumn" editable="false" prefWidth="179.0" text="Product Name" />

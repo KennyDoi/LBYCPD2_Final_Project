@@ -240,7 +240,9 @@ public class OrderController extends Main implements Initializable {
             FileWriter myWriter = new FileWriter("assets/" + startDate + " to " + endDate + " Order Report.csv");
             myWriter.write("~~~Order Report -> orderID;item;customer;date;quantity;totalPrice\n");
             for (int i = 0; i < orderList.size(); i++) {
-                myWriter.write(orderList.get(i).orderID + "," + orderList.get(i).item + "," + orderList.get(i).customer + "," + orderList.get(i).date + "," + orderList.get(i).quantity + "," + orderList.get(i).totalPrice + "\n");
+                myWriter.write(orderList.get(i).orderID + "," + orderList.get(i).item + ","
+                        + orderList.get(i).customer + "," + orderList.get(i).date + ","
+                        + orderList.get(i).quantity + "," + orderList.get(i).totalPrice + "\n");
             }
             myWriter.close();
             System.out.println("Successfully wrote to the OrderReport csv.");

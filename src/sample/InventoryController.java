@@ -361,7 +361,6 @@ public class InventoryController extends Main implements Initializable{
         subtractCheck.setSelected(false);
         selectedItem = null;
         refreshCategories();
-
     }
 
     public void switchScene(MouseEvent event, String filename, String title){

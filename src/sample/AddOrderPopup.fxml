@@ -12,80 +12,86 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="28.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AddOrderPopupController">
+<AnchorPane prefHeight="28.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AddOrderPopupController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#515151" height="455.0" stroke="BLACK" strokeType="INSIDE" width="463.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcf3a9" height="424.0" layoutX="16.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" width="431.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fddf7f" height="424.0" layoutX="16.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" width="431.0" />
       <ImageView fx:id="logo" fitHeight="71.0" fitWidth="98.0" layoutX="359.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../21CartsLogo.jpeg" />
          </image>
       </ImageView>
-      <Text layoutX="39.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Order" textAlignment="CENTER" wrappingWidth="348.607421875">
+      <Text fill="#4b4b4b" layoutX="42.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADD ORDER" textAlignment="CENTER" wrappingWidth="348.607421875">
          <font>
-            <Font size="23.0" />
+            <Font name="Raleway Bold" size="31.0" />
          </font>
       </Text>
       <TextField fx:id="orderNumInput" layoutX="160.0" layoutY="116.0" prefHeight="25.0" prefWidth="245.0" />
       <TextField fx:id="customerNameInput" layoutX="160.0" layoutY="152.0" prefHeight="25.0" prefWidth="245.0" />
-      <ChoiceBox fx:id="categoryInventory" layoutX="160.0" layoutY="197.0" prefHeight="25.0" prefWidth="245.0" />
-      <ChoiceBox fx:id="itemName" disable="true" layoutX="160.0" layoutY="226.0" prefHeight="25.0" prefWidth="245.0" />
-      <ChoiceBox fx:id="itemVariant" disable="true" layoutX="160.0" layoutY="258.0" prefHeight="25.0" prefWidth="245.0" />
-      <DatePicker fx:id="dateOrdered" layoutX="160.0" layoutY="322.0" />
-      <Button fx:id="confirmAdd" layoutX="252.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#confirmAdd" prefHeight="21.0" prefWidth="80.0" text="Confirm" />
-      <Button fx:id="cancelAdd" layoutX="348.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#cancelAdd" prefHeight="25.0" prefWidth="80.0" text="Cancel" />
-      <Text layoutX="41.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Name" wrappingWidth="103.607421875">
+      <ChoiceBox fx:id="categoryInventory" layoutX="160.0" layoutY="196.0" prefHeight="25.0" prefWidth="245.0" />
+      <ChoiceBox fx:id="itemName" disable="true" layoutX="160.0" layoutY="237.0" prefHeight="25.0" prefWidth="245.0" />
+      <ChoiceBox fx:id="itemVariant" disable="true" layoutX="160.0" layoutY="282.0" prefHeight="25.0" prefWidth="245.0" />
+      <DatePicker fx:id="dateOrdered" layoutX="160.0" layoutY="352.0" />
+      <Button fx:id="confirmAdd" layoutX="247.0" layoutY="396.0" mnemonicParsing="false" onMouseClicked="#confirmAdd" prefHeight="21.0" prefWidth="80.0" text="Confirm" textFill="#4b4b4b">
          <font>
-            <Font size="16.0" />
+            <Font name="Raleway Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="cancelAdd" layoutX="349.0" layoutY="396.0" mnemonicParsing="false" onMouseClicked="#cancelAdd" prefHeight="21.0" prefWidth="80.0" text="Cancel" textFill="#4b4b4b">
+         <font>
+            <Font name="Raleway Bold" size="12.0" />
+         </font></Button>
+      <Text fill="#4b4b4b" layoutX="41.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Name" wrappingWidth="103.607421875">
+         <font>
+            <Font name="Raleway Bold" size="16.0" />
          </font>
       </Text>
-      <Text layoutX="41.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity" wrappingWidth="103.607421875">
+      <Text fill="#4b4b4b" layoutX="40.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity" wrappingWidth="103.607421875">
          <font>
-            <Font size="16.0" />
+            <Font name="Raleway Bold" size="16.0" />
          </font>
       </Text>
-      <Text layoutX="41.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Ordered" wrappingWidth="103.607421875">
+      <Text fill="#4b4b4b" layoutX="41.0" layoutY="362.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Ordered" wrappingWidth="103.607421875">
          <font>
-            <Font size="16.0" />
+            <Font name="Raleway Bold" size="16.0" />
          </font>
       </Text>
-      <Text layoutX="41.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order No." wrappingWidth="87.607421875">
+      <Text fill="#4b4b4b" layoutX="41.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order No." wrappingWidth="87.607421875">
          <font>
-            <Font size="16.0" />
+            <Font name="Raleway Bold" size="16.0" />
          </font>
       </Text>
       <TextField fx:id="newTextCategory" layoutX="169.0" layoutY="152.0" prefHeight="25.0" prefWidth="245.0" visible="false" />
-      <Text layoutX="41.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Category" wrappingWidth="103.607421875">
+      <Text fill="#4b4b4b" layoutX="41.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Category" wrappingWidth="103.607421875">
          <font>
-            <Font size="16.0" />
+            <Font name="Raleway Bold" size="16.0" />
          </font>
       </Text>
-      <Text layoutX="41.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Variation" wrappingWidth="103.607421875">
+      <Text fill="#4b4b4b" layoutX="41.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Variation" wrappingWidth="103.607421875">
          <font>
-            <Font size="16.0" />
+            <Font name="Raleway Bold" size="16.0" />
          </font>
       </Text>
-      <Button fx:id="confirmCategoryButton" layoutX="414.0" layoutY="199.0" mnemonicParsing="false" onMousePressed="#confirmCategory" text="✓">
+      <Button fx:id="confirmCategoryButton" layoutX="410.0" layoutY="200.0" mnemonicParsing="false" onMousePressed="#confirmCategory" text="✓">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="confirmItemNameButton" disable="true" layoutX="414.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#confirmItemName" text="✓">
+      <Button fx:id="confirmItemNameButton" disable="true" layoutX="410.0" layoutY="240.0" mnemonicParsing="false" onMouseClicked="#confirmItemName" text="✓">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Text layoutX="41.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Name" wrappingWidth="103.607421875">
+      <Text fill="#4b4b4b" layoutX="41.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Name" wrappingWidth="103.607421875">
          <font>
-            <Font size="16.0" />
+            <Font name="Raleway Bold" size="16.0" />
          </font>
       </Text>
       <Text fx:id="currentStockText" layoutX="247.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="112.13671875" />
-      <Button fx:id="confirmItemVariationButton" disable="true" layoutX="414.0" layoutY="260.0" mnemonicParsing="false" onMouseClicked="#confirmItemVariation" text="✓">
+      <Button fx:id="confirmItemVariationButton" disable="true" layoutX="410.0" layoutY="285.0" mnemonicParsing="false" onMouseClicked="#confirmItemVariation" text="✓">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Spinner fx:id="quantitySpinner" disable="true" layoutX="160.0" layoutY="290.0" prefHeight="25.0" prefWidth="65.0" />
+      <Spinner fx:id="quantitySpinner" disable="true" layoutX="160.0" layoutY="320.0" prefHeight="25.0" prefWidth="65.0" />
    </children>
 </AnchorPane>
