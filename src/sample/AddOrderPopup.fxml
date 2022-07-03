@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="28.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AddOrderPopupController">
+<AnchorPane prefHeight="28.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AddOrderPopupController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#515151" height="455.0" stroke="BLACK" strokeType="INSIDE" width="463.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fddf7f" height="424.0" layoutX="16.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" width="431.0" />
@@ -86,7 +86,7 @@
             <Font name="Raleway Bold" size="16.0" />
          </font>
       </Text>
-      <Text fx:id="currentStockText" layoutX="247.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="112.13671875" />
+      <Text fx:id="currentStockText" layoutX="237.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="180.13671875" />
       <Button fx:id="confirmItemVariationButton" disable="true" layoutX="410.0" layoutY="285.0" mnemonicParsing="false" onMouseClicked="#confirmItemVariation" text="✓">
          <font>
             <Font size="10.0" />
