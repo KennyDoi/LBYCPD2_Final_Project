@@ -25,7 +25,6 @@ import java.net.URL;
 import java.util.*;
 
 public class InventoryController extends Main implements Initializable{
-    public int selectedID;
     public static Item selectedItem;
     public int index;
 
@@ -94,7 +93,6 @@ public class InventoryController extends Main implements Initializable{
             editItemButton.setDisable(false);
             addCheck.setDisable(false);
             subtractCheck.setDisable(false);
-            System.out.println(selectedItem.category);
             return;
         }
     }
@@ -114,7 +112,6 @@ public class InventoryController extends Main implements Initializable{
         addCheck.setSelected(false);
         subtractCheck.setSelected(false);
         String category = categoryInventory.getSelectionModel().getSelectedItem();
-        System.out.println(category);
 
         if (category==null) return;
 
@@ -149,7 +146,6 @@ public class InventoryController extends Main implements Initializable{
 
 
         String category = categoryInventory.getSelectionModel().getSelectedItem();
-        System.out.println(category);
         if (category==null){return;}
 
         if(category.equals("ALL")) {

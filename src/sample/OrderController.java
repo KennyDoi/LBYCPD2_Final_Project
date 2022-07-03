@@ -15,11 +15,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.*;
-
-import javax.sound.sampled.Line;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,8 +25,6 @@ import java.util.*;
 
 public class OrderController extends Main implements Initializable {
 
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
-    String currTime = LocalDate.now().format(dtf);
     LinkedList<Order> reportList = new LinkedList<Order>();
     public static LocalDate startDate;
     public static LocalDate endDate;
